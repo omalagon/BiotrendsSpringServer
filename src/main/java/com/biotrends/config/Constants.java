@@ -10,7 +10,7 @@ public class Constants {
     public static final String DATABASE_USER = "root";
     public static final String DATABASE_PASSWORD = "arcgis2015";
     public static final String DATABASE_SCHEMA = "training";
-    public static final String NAMING_STRATEGY = "com.biotrends.config.NamingStrategy";
+    public static final String NAMING_STRATEGY = "com.biotrends.config.Repository.NamingStrategy";
     public static final String HIBERNATE_SHOW_SQL_VALUE = "false";
     public static final String HIBERNATE_DIALECT_VALUE = "org.hibernate.dialect.MySQLDialect";
     public static final String HIBERNATE_FORMAT_SQL_VALUE = "true";

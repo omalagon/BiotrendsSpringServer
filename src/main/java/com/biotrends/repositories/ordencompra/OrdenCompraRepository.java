@@ -1,8 +1,7 @@
-package com.biotrends.repositories.item;
+package com.biotrends.repositories.ordencompra;
 
 import com.biotrends.entities.item.Item;
 import com.biotrends.repositories.EntityRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,5 +9,5 @@ import org.springframework.stereotype.Repository;
  * @since 5/12/2016.
  */
 @Repository
-public interface ItemRepository extends EntityRepository<Item>{
+public interface OrdenCompraRepository extends EntityRepository<Item>{
 }

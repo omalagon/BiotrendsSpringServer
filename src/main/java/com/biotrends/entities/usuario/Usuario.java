@@ -2,12 +2,14 @@ package com.biotrends.entities.usuario;
 
 
 import com.biotrends.entities.BiotrendsBaseEntity;
+import com.biotrends.entities.descargo.Descargo;
 import com.biotrends.entities.item.Item;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Oscar Malagon
