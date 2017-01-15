@@ -17,7 +17,5 @@ public interface ConsumoService {
 
     List<Consumo> findAll();
 
-    Optional<Consumo> delete(Consumo consumo);
-
-    Optional<Consumo> registerConsumo(Consumo consumo);
+    Optional<Consumo> delete(String id);
 }

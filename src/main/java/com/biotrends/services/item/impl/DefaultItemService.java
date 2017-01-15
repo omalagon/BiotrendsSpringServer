@@ -1,19 +1,15 @@
 package com.biotrends.services.item.impl;
 
 import com.biotrends.entities.item.Item;
-import com.biotrends.entities.item.ItemBase;
 import com.biotrends.repositories.item.ItemRepository;
 import com.biotrends.services.item.ItemService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
