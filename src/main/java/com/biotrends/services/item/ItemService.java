@@ -1,4 +1,4 @@
-package com.biotrends.services;
+package com.biotrends.services.item;
 
 import com.biotrends.entities.item.Item;
 
@@ -11,7 +11,12 @@ import java.util.Optional;
  */
 public interface ItemService {
 
+    Optional<Item> createOrUpdateItem(Item item);
+
     Optional<Item> findById(String id);
 
     List<Item> findAll();
+
+    Optional<Item> delete(String id);
+
 }

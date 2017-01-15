@@ -1,4 +1,4 @@
-package com.biotrends.config.Repository;
+package com.biotrends.config.repository;
 
 import org.hibernate.cfg.ImprovedNamingStrategy;
 import static com.google.common.base.Strings.isNullOrEmpty;

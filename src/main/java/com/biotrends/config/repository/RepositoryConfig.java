@@ -1,4 +1,4 @@
-package com.biotrends.config.Repository;
+package com.biotrends.config.repository;
 
 import com.biotrends.config.Constants;
 import lombok.extern.slf4j.Slf4j;

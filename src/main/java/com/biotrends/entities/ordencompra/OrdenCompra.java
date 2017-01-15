@@ -22,16 +22,18 @@ import javax.validation.constraints.NotNull;
 @SuppressWarnings("squid:S1068")
 public class OrdenCompra extends BiotrendsBaseEntity{
 
+    private static final long serialVersionUID = -4612995550087076042L;
+
     @Column(length= 500, name = "ORD_OBSERVACIONES")
     @NotNull
     private String observaciones;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "ORD_ID_USU",foreignKey = @ForeignKey(name = "ORD_ID_USU"))
+    @JoinColumn(name = "ORD_ID_USU",foreignKey = @ForeignKey(name = "FK_ORD_ID_USU"))
     private Usuario usuario;
 
     @Builder
-    public OrdenCompra target(String id, String observaciones, Usuario usuario){
+    public static OrdenCompra target(String id, String observaciones, Usuario usuario){
         OrdenCompra ordenCompra = new OrdenCompra();
         ordenCompra.setId(id); //Numero de orden
         ordenCompra.setObservaciones(observaciones);

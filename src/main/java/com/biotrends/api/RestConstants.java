@@ -1,4 +1,4 @@
-package com.biotrends.api.item.util;
+package com.biotrends.api;
 
 import static org.springframework.hateoas.Link.REL_SELF;
 import static org.springframework.http.HttpStatus.ACCEPTED;

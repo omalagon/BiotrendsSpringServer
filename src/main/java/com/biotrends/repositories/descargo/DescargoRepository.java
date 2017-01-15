@@ -1,8 +1,7 @@
 package com.biotrends.repositories.descargo;
 
-import com.biotrends.entities.descargo.Descargo;
+import com.biotrends.entities.consumo.Consumo;
 import com.biotrends.repositories.EntityRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,5 +9,5 @@ import org.springframework.stereotype.Repository;
  * @since 5/12/2016.
  */
 @Repository
-public interface DescargoRepository extends EntityRepository<Descargo>{
+public interface DescargoRepository extends EntityRepository<Consumo>{
 }

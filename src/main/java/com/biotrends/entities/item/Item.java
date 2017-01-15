@@ -2,17 +2,18 @@ package com.biotrends.entities.item;
 
 
 import com.biotrends.entities.BiotrendsBaseEntity;
+import com.biotrends.entities.itemxproveedor.ItemXProveedor;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * @author Oscar Malagon
  * @since 4/12/2016.
  */
+
 
 @Data
 @Entity
@@ -22,45 +23,15 @@ import javax.validation.constraints.NotNull;
 @SuppressWarnings("squid:S1068")
 public class Item extends BiotrendsBaseEntity{
 
-    @Column(length= 100, name = "ITEM_INV")
-    @NotNull
-    private String inventario;
-
-    @Column(length= 100, name = "ITEM_DESC")
-    @NotNull
-    private String descripcion;
-
-    @Column(length= 100, name = "ITEM_PRES")
-    @NotNull
-    private String presentacion;
-
-    @Column(name = "ITEM_CANT")
-    @NotNull
-    private Double cantidad;
-
-    @Column(name = "ITEM_PREC")
-    @NotNull
-    private Double precio;
-
-    @Column(length= 100, name = "ITEM_CCAL")
-    @NotNull
-    private String cCalidad;
-
-    @Column(length= 100, name = "ITEM_CESP")
-    @NotNull
-    private String cEsp;
+    @Embedded
+    @Column(nullable = false)
+    private ItemBase itemBase;
 
     @Builder
-    public Item target(String id, String inventario,String descripcion,String presentacion, Double cantidad, Double precio, String cCalidad,String cEsp ){
+    public static Item target(String id, ItemBase itemBase){
         Item item = new Item();
         item.setId(id);
-        item.setInventario(inventario);
-        item.setDescripcion(descripcion);
-        item.setPresentacion(presentacion);
-        item.setCantidad(cantidad);
-        item.setPrecio(precio);
-        item.setCCalidad(cCalidad);
-        item.setCEsp(cEsp);
+        item.setItemBase(itemBase);
 
         return item;
     }
