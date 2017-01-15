@@ -1,4 +1,4 @@
-package com.biotrends.services.descargo;
+package com.biotrends.services.consumo;
 
 import com.biotrends.entities.consumo.Consumo;
 
@@ -9,7 +9,7 @@ import java.util.Optional;
  * @author Oscar Malagon
  * @since 23/12/2016.
  */
-public interface DescargoService {
+public interface ConsumoService {
 
     Optional<Consumo> createOrUpdateItem(Consumo consumo);
 
@@ -18,4 +18,6 @@ public interface DescargoService {
     List<Consumo> findAll();
 
     Optional<Consumo> delete(Consumo consumo);
+
+    Optional<Consumo> registerConsumo(Consumo consumo);
 }

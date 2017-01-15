@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,11 +30,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
     }
 
     @Override public Optional<Item> createOrUpdateItem(Item item) {
-        if(item.getId() != null){
+        if (item.getId() != null) {
             Optional<Item> itemEncontrado = findById(item.getId());
-            if(itemEncontrado.isPresent()){
+            if (itemEncontrado.isPresent()) {
                 //updates
-            }else{
+            } else {
                 return Optional.ofNullable(itemRepository.saveAndFlush(item));
             }
         }
@@ -50,7 +51,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
             return Optional.ofNullable(item);
         } catch (Exception ex) {
             log.error("Error buscando el item con id [" + id + "]", ex);
-            throw new RuntimeException("Error buscando el item con id [" + id + "]", ex);
+            throw new EntityNotFoundException();
         }
     }
 
@@ -59,7 +60,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
             return itemRepository.findAll();
         } catch (Exception ex) {
             log.error("Error buscando los items", ex);
-            throw new RuntimeException("Error buscando los items", ex);
+            throw new EntityNotFoundException();
         }
     }
 
@@ -71,7 +72,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
             return itemById;
         } catch (Exception ex) {
             log.error("Error eliminando el item con id [" + id + "]", ex);
-            throw new RuntimeException("Error buscando el item con id [" + id + "]", ex);
+            throw new RuntimeException("Error eliminando el item con id [" + id + "]", ex);
         }
     }
 

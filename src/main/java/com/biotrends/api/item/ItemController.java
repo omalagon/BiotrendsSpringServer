@@ -60,9 +60,7 @@ public interface ItemController {
         @ApiResponse(code = 500, message = "Unexpected Internal Server Error")})
     @RequestMapping(value = "/create", method = POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_HAL_JSON_VALUE)
     public ResponseEntity<Item> createItem(
-        @ApiParam(value = "The item object", required = true)
-        @RequestBody(required = true)
-            Item item
-        );
+        @ApiParam(value = "The item object", required = true) @RequestBody(required = true)
+            Item item);
 
 }

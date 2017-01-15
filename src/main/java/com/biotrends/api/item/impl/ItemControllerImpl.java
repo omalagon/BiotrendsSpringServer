@@ -72,17 +72,16 @@ public class ItemControllerImpl implements ItemController {
     @Override
     @RequestMapping(value = "/create", method = POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_HAL_JSON_VALUE)
     public ResponseEntity<Item> createItem(
-        @ApiParam(value = "The item object", required = true)
-        @RequestBody(required = true)
+        @ApiParam(value = "The item object", required = true) @RequestBody(required = true)
             Item item) {
 
-        if(item != null){
+        if (item != null) {
             Optional<Item> itemGuardado = itemService.createOrUpdateItem(item);
-            if(itemGuardado.isPresent()){
+            if (itemGuardado.isPresent()) {
                 return new ResponseEntity<Item>(itemGuardado.get(), OK);
             }
 
-            throw new RuntimeException("Item no guardado");
+            throw new EntityNotFoundException("Item no guardado");
         }
         return null;
     }
