@@ -1,5 +1,6 @@
-package com.biotrends.config;
+package com.biotrends.config.Repository;
 
+import com.biotrends.config.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.*;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;

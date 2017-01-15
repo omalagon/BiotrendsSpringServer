@@ -1,4 +1,4 @@
-package com.biotrends.config;
+package com.biotrends.config.Repository;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
