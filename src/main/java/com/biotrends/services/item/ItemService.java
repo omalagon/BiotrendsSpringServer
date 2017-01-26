@@ -19,4 +19,6 @@ public interface ItemService {
 
     Optional<Item> delete(String id);
 
+    String generateReport();
+
 }

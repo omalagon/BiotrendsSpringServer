@@ -2,7 +2,9 @@ package com.biotrends.api.item.impl;
 
 import com.biotrends.api.item.ItemController;
 import com.biotrends.entities.item.Item;
+import com.biotrends.exceptions.CommonBiotrendsRuntimeException;
 import com.biotrends.services.item.ItemService;
+import com.biotrends.utils.StringResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityNotFoundException;
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
 import static com.biotrends.api.RestConstants.APPLICATION_HAL_JSON_VALUE;
+import static com.google.common.base.Strings.isNullOrEmpty;
 import static org.springframework.http.HttpStatus.GONE;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
  * @author Oscar Malagon
@@ -84,6 +86,19 @@ public class ItemControllerImpl implements ItemController {
             throw new EntityNotFoundException("Item no guardado");
         }
         return null;
+    }
+
+    @Override
+    @RequestMapping(value = "/report", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
+    public ResponseEntity<StringResponse> generateReport() {
+        String filePath = itemService.generateReport();
+        if (!isNullOrEmpty(filePath)) {
+            StringResponse stringResponse = StringResponse.builder().response(filePath).build();
+
+            return new ResponseEntity<>(stringResponse, OK);
+        }
+
+        throw new CommonBiotrendsRuntimeException("Error generando el reporte");
     }
 
 
