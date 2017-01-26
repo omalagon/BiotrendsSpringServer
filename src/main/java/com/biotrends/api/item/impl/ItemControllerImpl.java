@@ -9,13 +9,16 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityNotFoundException;
-import java.io.File;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLConnection;
 import java.util.List;
 import java.util.Optional;
 
@@ -90,16 +93,17 @@ public class ItemControllerImpl implements ItemController {
 
     @Override
     @RequestMapping(value = "/report", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
-    public ResponseEntity<StringResponse> generateReport() {
+    public void generateReport(HttpServletResponse response) throws IOException {
         String filePath = itemService.generateReport();
-        if (!isNullOrEmpty(filePath)) {
-            StringResponse stringResponse = StringResponse.builder().response(filePath).build();
+        File reporte = new File(filePath);
+        String type = URLConnection.guessContentTypeFromName(reporte.getName());
+        response.setContentType(type);
+        response.setHeader("Content-Disposition", String.format("inline; filename=\"" + reporte.getName() +"\""));
+        response.setContentLength((int)reporte.length());
 
-            return new ResponseEntity<>(stringResponse, OK);
-        }
+        InputStream inputStream = new BufferedInputStream(new FileInputStream(reporte));
 
-        throw new CommonBiotrendsRuntimeException("Error generando el reporte");
+        FileCopyUtils.copy(inputStream, response.getOutputStream());
     }
-
 
 }

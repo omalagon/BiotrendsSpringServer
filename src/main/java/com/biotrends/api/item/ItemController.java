@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 import static com.biotrends.api.RestConstants.APPLICATION_HAL_JSON_VALUE;
@@ -72,5 +75,5 @@ public interface ItemController {
         @ApiResponse(code = 404, message = "Items Not Found"),
         @ApiResponse(code = 500, message = "Unexpected Internal Server Error")})
     @RequestMapping(value = "/report", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
-    public ResponseEntity<StringResponse> generateReport();
+    public void generateReport(HttpServletResponse response) throws IOException;
 }
