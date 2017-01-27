@@ -15,4 +15,16 @@ public final class Utils {
 
         return "NO";
     }
+
+    public static Boolean stringToBoolean(String value){
+        if(null != value){
+            if(value.equalsIgnoreCase("SI")){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        return false;
+    }
 }

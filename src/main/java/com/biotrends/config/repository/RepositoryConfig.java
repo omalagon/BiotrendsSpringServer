@@ -38,6 +38,8 @@ public class RepositoryConfig {
     private static final String HIBERNATE_HBM2DDL_SCRIPTS = "hibernate.hbm2ddl.import_files";
     private static final String INIT_SCRIPT = "db-scripts/seed.sql";
 
+    public static final String DATASOURCE_OLD = "datasource_old";
+
     @Primary
     @Bean(destroyMethod = "close")
     public DataSource dataSource(){
@@ -88,6 +90,21 @@ public class RepositoryConfig {
     @Bean
     public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
+    }
+
+    @Bean(destroyMethod = "close", name = DATASOURCE_OLD)
+    public DataSource datasource_old() {
+        String driver = Constants.OLD_DRIVER_CLASS_NAME;
+        String url = Constants.OLD_DATABASE_URL;
+        String username = Constants.OLD_DATABASE_USER;
+        String password = Constants.OLD_DATABASE_PASSWORD;
+
+        return DataSourceUtil.builder()
+            .driver(driver)
+            .url(url)
+            .username(username)
+            .password(password)
+            .build();
     }
 
 }

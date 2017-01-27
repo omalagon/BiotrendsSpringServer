@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * @author Oscar Malagon
@@ -14,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @Embeddable
 @SuppressWarnings("squid:S1068")
-public class ItemBase {
+public class ItemBase implements Serializable{
 
     @Column(length= 100, name = "ITEM_INV")
     @NotNull
