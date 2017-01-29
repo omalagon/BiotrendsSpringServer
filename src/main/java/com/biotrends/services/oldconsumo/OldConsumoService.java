@@ -1,4 +1,4 @@
-package com.biotrends.services.olderconsumo;
+package com.biotrends.services.oldconsumo;
 
 import com.biotrends.entities.oldconsumo.OldConsumoDTO;
 

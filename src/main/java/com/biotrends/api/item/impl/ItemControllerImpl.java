@@ -8,6 +8,7 @@ import com.biotrends.utils.StringResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,6 +50,12 @@ public class ItemControllerImpl implements ItemController {
         List<Item> itemList = itemService.findAll();
 
         return new ResponseEntity<>(itemList, OK);
+    }
+
+    @Override @RequestMapping(value = "/{page}/{size}", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
+    public ResponseEntity<Page<Item>> getItems(@PathVariable int page, @PathVariable int size) {
+        Page<Item> itemPage = itemService.findAll(page, size);
+        return new ResponseEntity<>(itemPage, OK);
     }
 
     @Override @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_HAL_JSON_VALUE)

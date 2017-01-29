@@ -2,7 +2,7 @@ package com.biotrends.api.oldconsumo.impl;
 
 import com.biotrends.api.oldconsumo.OldConsumoController;
 import com.biotrends.entities.oldconsumo.OldConsumoDTO;
-import com.biotrends.services.olderconsumo.OldConsumoService;
+import com.biotrends.services.oldconsumo.OldConsumoService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

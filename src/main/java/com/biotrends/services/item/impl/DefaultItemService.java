@@ -8,6 +8,9 @@ import com.biotrends.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -61,6 +64,16 @@ import static com.google.common.base.Preconditions.checkNotNull;
             return Optional.ofNullable(item);
         } catch (Exception ex) {
             log.error("Error buscando el item con id [" + id + "]", ex);
+            throw new EntityNotFoundException();
+        }
+    }
+
+    @Override public Page<Item> findAll(int page, int size) {
+        try {
+            Pageable pageable = new PageRequest(page, size);
+            return itemRepository.findAll(pageable);
+        } catch (Exception ex) {
+            log.error("Error buscando los items", ex);
             throw new EntityNotFoundException();
         }
     }

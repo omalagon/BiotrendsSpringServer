@@ -1,8 +1,8 @@
-package com.biotrends.services.olderconsumo.impl;
+package com.biotrends.services.oldconsumo.impl;
 
 import com.biotrends.entities.oldconsumo.OldConsumoDTO;
 import com.biotrends.repositories.oldconsumodao.OldConsumoDAO;
-import com.biotrends.services.olderconsumo.OldConsumoService;
+import com.biotrends.services.oldconsumo.OldConsumoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

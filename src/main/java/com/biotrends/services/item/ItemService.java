@@ -1,6 +1,8 @@
 package com.biotrends.services.item;
 
 import com.biotrends.entities.item.Item;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +16,8 @@ public interface ItemService {
     Optional<Item> createOrUpdateItem(Item item);
 
     Optional<Item> findById(String id);
+
+    Page<Item> findAll(int page, int size);
 
     List<Item> findAll();
 
