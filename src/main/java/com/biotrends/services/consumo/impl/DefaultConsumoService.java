@@ -113,6 +113,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
     }
 
     @Override public Optional<Consumo> delete(String id) {
+    	checkNotNull(id, "El id del consumo no puede ser nulo");
+    	
         Optional<Consumo> consumoById = findById(id);
         
         try {
@@ -121,8 +123,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
                 checkArgument(item.isPresent(), "El item ingresado no existe");
 
                 item = updateItemCantidad(consumoById.get(), item, OPERATOR_PLUS);
+                if(item.isPresent()){                	
+                	repository.delete(consumoById.get());
+                }
                 
-                repository.delete(consumoById.get());
+                log.error("Error actualizando la información del item");
+                throw new CommonBiotrendsRuntimeException("Error actualizando la información del item");
+                
             }
 
             return consumoById;

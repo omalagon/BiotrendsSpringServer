@@ -1,15 +1,18 @@
 package com.biotrends.entities.solicitud;
 
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 import com.biotrends.entities.BiotrendsBaseEntity;
-import com.biotrends.entities.usuario.Usuario;
+
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 /**
  * @author Oscar Malagon
@@ -35,16 +38,14 @@ public class Solicitud extends BiotrendsBaseEntity {
     @Column(name = "SOL_REVISADO")
     private Boolean esRevisado;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "ID_USU_SOLICITANTE", nullable = false, foreignKey = @ForeignKey(name = "FK_ID_USU_SOLICITANTE"))
-    private Usuario solicitante;
+    @Column(name = "SOL_ID_USU_SOLICITANTE")
+    private String solicitante;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = true)
-    @JoinColumn(name = "ID_USU_AUX_OFI", nullable = true, foreignKey = @ForeignKey(name = "FK_ID_USU_AUX_OFI"))
-    private Usuario auxiliarOficina;
+    @Column(name = "SOL_ID_USU_AUX_OFI")
+    private String auxiliarOficina;
 
     @Builder
-    public static Solicitud target(Date fechaSolicitud, String observaciones, Boolean esRevisado, Usuario solicitante, Usuario auxiliarOficina ){
+    public static Solicitud target(Date fechaSolicitud, String observaciones, Boolean esRevisado, String solicitante, String auxiliarOficina ){
         Solicitud solicitud = new Solicitud();
         solicitud.setFechaSolicitud(fechaSolicitud);
         solicitud.setObservaciones(observaciones);
