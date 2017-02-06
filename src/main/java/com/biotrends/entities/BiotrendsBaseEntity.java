@@ -1,6 +1,7 @@
 package com.biotrends.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -20,12 +21,13 @@ import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME
  */
 @MappedSuperclass
 @Data
+@JsonIgnoreProperties({ "createdBy", "lastModifiedBy","hibernateLazyInitializer", "handler" })
 @SuppressWarnings("squid:S1068")
 public class BiotrendsBaseEntity implements Persistable<String>{
 
-    private static final long serialVersionUID = -4472919931255457229L;
+	private static final long serialVersionUID = 8541588848326421147L;
 
-    public static final String USER_DEFAULT = "system";
+	public static final String USER_DEFAULT = "system";
 
     @Id
     @Column(length = 32, unique = true, nullable = false)

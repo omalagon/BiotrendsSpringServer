@@ -1,10 +1,10 @@
 package com.biotrends.services.item.impl;
 
 import com.biotrends.entities.item.Item;
+import com.biotrends.entities.item.ItemBase;
 import com.biotrends.exceptions.CommonBiotrendsRuntimeException;
 import com.biotrends.repositories.item.ItemRepository;
 import com.biotrends.services.item.ItemService;
-import com.biotrends.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
@@ -15,7 +15,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
@@ -23,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.biotrends.utils.Utils.booleanToYesNoString;
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -35,19 +35,31 @@ import static com.google.common.base.Preconditions.checkNotNull;
     private static final String FILE_NAME = "InventarioBiotrends_";
     private static final String XLS_EXTENTION = "_.xls";
 
-    private final ItemRepository itemRepository;
+    private final ItemRepository repository;
 
-    public DefaultItemService(ItemRepository itemRepository) {
-        this.itemRepository = itemRepository;
+    public DefaultItemService(ItemRepository repository) {
+        this.repository = repository;
     }
 
     @Override public Optional<Item> createOrUpdateItem(Item item) {
         if (item.getId() != null) {
             Optional<Item> itemEncontrado = findById(item.getId());
             if (itemEncontrado.isPresent()) {
-                //updates
+                Item itemToUpdate = itemEncontrado.get();
+                ItemBase itemBase = itemToUpdate.getItemBase();
+                itemBase.setCantidad(item.getItemBase().getCantidad());
+                itemBase.setCCalidad(item.getItemBase().getCCalidad());
+                itemBase.setCEsp(item.getItemBase().getCEsp());
+                itemBase.setDescripcion(item.getItemBase().getDescripcion());
+                itemBase.setInventario(item.getItemBase().getInventario());
+                itemBase.setPrecio(item.getItemBase().getPrecio());
+                itemBase.setPresentacion(item.getItemBase().getPresentacion());
+
+                itemToUpdate.setItemBase(itemBase);
+
+                return Optional.ofNullable(repository.saveAndFlush(itemToUpdate));
             } else {
-                return Optional.ofNullable(itemRepository.saveAndFlush(item));
+                return Optional.ofNullable(repository.saveAndFlush(item));
             }
         }
 
@@ -59,7 +71,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
         checkNotNull(id, "El id del ítem no puede ser nulo");
 
         try {
-            Item item = itemRepository.findOne(id);
+            Item item = repository.findOne(id);
 
             return Optional.ofNullable(item);
         } catch (Exception ex) {
@@ -69,9 +81,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
     }
 
     @Override public Page<Item> findAll(int page, int size) {
+        checkNotNull(page, "La página no puede ser null");
+        checkNotNull(size, "El tamaño de la pagina no puede ser null");
+        checkArgument(page >= 0, "La página no puede ser negativa");
+        checkArgument(size >= 0, "El tamaño de la página no puede ser negativa");
+
         try {
             Pageable pageable = new PageRequest(page, size);
-            return itemRepository.findAll(pageable);
+            return repository.findAll(pageable);
         } catch (Exception ex) {
             log.error("Error buscando los items", ex);
             throw new EntityNotFoundException();
@@ -80,7 +97,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
     @Override public List<Item> findAll() {
         try {
-            return itemRepository.findAll();
+            return repository.findAll();
         } catch (Exception ex) {
             log.error("Error buscando los items", ex);
             throw new EntityNotFoundException();
@@ -91,7 +108,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
         Optional<Item> itemById = findById(id);
         try {
             if(itemById.isPresent()){
-                itemRepository.delete(itemById.get());
+                repository.delete(itemById.get());
 
                 return itemById;
             }

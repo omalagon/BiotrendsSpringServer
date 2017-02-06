@@ -37,16 +37,16 @@ public class Consumo extends BiotrendsBaseEntity{
     @NotNull
     private Double cantidad;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CONS_ID_ITEM",foreignKey = @ForeignKey(name = "FK_CONS_ID_ITEM"))
     private Item item;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "CONS_ID_USU",foreignKey = @ForeignKey(name = "FK_CONS_ID_USU"))
-    private Usuario usuario;
+    @Column(name = "CONS_ID_USU")
+    @NotNull
+    private String usuario;
 
     @Builder
-    public static Consumo target(String id, Date fechaDescargo, String area,Double cantidad, Item item, Usuario usuario){
+    public static Consumo target(String id, Date fechaDescargo, String area,Double cantidad, Item item, String usuario){
         Consumo consumo = new Consumo();
         consumo.setId(id);
         consumo.setFechaDescargo(fechaDescargo);

@@ -1,6 +1,5 @@
 package com.biotrends;
 
-import com.biotrends.entities.item.Item;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 

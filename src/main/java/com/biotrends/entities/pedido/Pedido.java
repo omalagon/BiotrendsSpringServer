@@ -24,6 +24,8 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class Pedido extends BiotrendsBaseEntity{
 
+    private static final long serialVersionUID = -2035824732869046210L;
+
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "PED_REC_ID",foreignKey = @ForeignKey(name = "FK_PED_REC_ID"))
     private Recepcion recepcion;

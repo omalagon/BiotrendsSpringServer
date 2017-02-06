@@ -17,6 +17,8 @@ import java.io.Serializable;
 @SuppressWarnings("squid:S1068")
 public class ItemBase implements Serializable{
 
+    private static final long serialVersionUID = -5015815182162586358L;
+
     @Column(length= 100, name = "ITEM_INV")
     @NotNull
     private String inventario;

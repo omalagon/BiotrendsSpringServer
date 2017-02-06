@@ -43,10 +43,9 @@ public class Usuario extends BiotrendsBaseEntity{
     @NotNull
     private String laboratorio;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn( name = "USU_ID_CREADOR", foreignKey = @ForeignKey(name = "FK_USU_ID_CREADOR"))
+    @Column(length= 100, name = "USU_ID_CREADOR")
     @NotNull
-    private Usuario usuarioCreador;
+    private String usuarioCreador;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "solicitante")
     private List<Solicitud> solicitudesPedidas;
@@ -64,11 +63,13 @@ public class Usuario extends BiotrendsBaseEntity{
     private List<Recepcion> recepciones;
 
     @Builder
-    public static Usuario target(String nombre,
+    public static Usuario target(
+        String id,
+        String nombre,
         String password,
         String correo,
         String laboratorio,
-        Usuario usuarioCreador,
+        String usuarioCreador,
         List<Solicitud> solicitudesPedidas,
         List<Solicitud> solicitudesAprobadas,
         List<Consumo> consumos,
@@ -76,6 +77,7 @@ public class Usuario extends BiotrendsBaseEntity{
         List<Recepcion> recepciones){
 
         Usuario usuario = new Usuario();
+        usuario.setId(id);
         usuario.setNombre(nombre);
         usuario.setPassword(password);
         usuario.setCorreo(correo);

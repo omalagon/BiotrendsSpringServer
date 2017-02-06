@@ -17,5 +17,5 @@ public interface UsuarioService {
 
     List<Usuario> findAll();
 
-    Optional<Usuario> delete(Usuario usuario);
+    Optional<Usuario> delete(String id);
 }

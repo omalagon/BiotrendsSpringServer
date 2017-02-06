@@ -1,0 +1,35 @@
+package com.biotrends.assemblers.consumo;
+
+import com.biotrends.assemblers.EntityResource;
+import com.biotrends.entities.usuario.Usuario;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
+import lombok.*;
+
+/**
+ * @author Oscar Malagon
+ * @since 4/02/2017.
+ */
+@Getter
+@Setter
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@SuppressWarnings("squid:S1068")
+@ApiModel(value = "UsuarioResource", description = "The Usuario Resource Representation")
+public class UsuarioResource extends EntityResource {
+
+    @JsonProperty
+    private Usuario usuario;
+
+    @JsonProperty
+    private String idUsuarioCreador;
+
+    @Builder
+    public static UsuarioResource target(Usuario usuario, String idUsuarioCreador){
+        UsuarioResource usuarioResource = new UsuarioResource();
+        usuarioResource.setUsuario(usuario);
+        usuarioResource.setIdUsuarioCreador(idUsuarioCreador);
+
+        return usuarioResource;
+    }
+}

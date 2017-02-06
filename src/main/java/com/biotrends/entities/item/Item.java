@@ -23,6 +23,8 @@ import java.util.List;
 @SuppressWarnings("squid:S1068")
 public class Item extends BiotrendsBaseEntity{
 
+    private static final long serialVersionUID = -5753438717953215092L;
+
     @Embedded
     @Column(nullable = false)
     private ItemBase itemBase;
