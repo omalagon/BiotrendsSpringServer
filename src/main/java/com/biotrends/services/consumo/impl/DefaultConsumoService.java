@@ -2,6 +2,7 @@ package com.biotrends.services.consumo.impl;
 
 import com.biotrends.entities.consumo.Consumo;
 import com.biotrends.entities.item.Item;
+import com.biotrends.entities.item.ItemBase;
 import com.biotrends.entities.usuario.Usuario;
 import com.biotrends.exceptions.CommonBiotrendsRuntimeException;
 import com.biotrends.repositories.consumo.ConsumoRepository;
@@ -28,7 +29,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 @Service @Slf4j public class DefaultConsumoService implements ConsumoService {
 
-    private final ConsumoRepository repository;
+    private static final String OPERATOR_MINUS = "-";
+    private static final String OPERATOR_PLUS = "+";
+    
+	private final ConsumoRepository repository;
     private final UsuarioService usuarioService;
     private final ItemService itemService;
 
@@ -48,7 +52,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
         Optional<Item> item = itemService.findById(consumo.getItem().getId());
         checkArgument(item.isPresent(), "El item ingresado no existe");
 
-        if (consumo.getId() != null) {
+        item = updateItemCantidad(consumo, item, OPERATOR_MINUS);
+        
+        if (consumo.getId() != null && item.isPresent()) {
             Optional<Consumo> consumoEncontrado = findById(consumo.getId());
             if (consumoEncontrado.isPresent()) {
                 Consumo updatedConsumo = consumoEncontrado.get();
@@ -108,8 +114,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
     @Override public Optional<Consumo> delete(String id) {
         Optional<Consumo> consumoById = findById(id);
+        
         try {
             if(consumoById.isPresent()){
+            	Optional<Item> item = itemService.findById(consumoById.get().getItem().getId());
+                checkArgument(item.isPresent(), "El item ingresado no existe");
+
+                item = updateItemCantidad(consumoById.get(), item, OPERATOR_PLUS);
+                
                 repository.delete(consumoById.get());
             }
 
@@ -119,5 +131,24 @@ import static com.google.common.base.Preconditions.checkNotNull;
             throw new CommonBiotrendsRuntimeException("Error eliminando el consumo con id [" + id + "]", ex);
         }
     }
+    
+
+	/**
+	 * @param consumo
+	 * @param item
+	 * @return the item with the Cantidad updated
+	 */
+	private Optional<Item> updateItemCantidad(Consumo consumo, Optional<Item> item, String operator) {
+		
+		Double cantidad = operator.equalsIgnoreCase(OPERATOR_MINUS) ? consumo.getCantidad() * -1 : consumo.getCantidad();
+		
+		Item updateItem  = item.get();
+        ItemBase updateItmB = updateItem.getItemBase();
+        updateItmB.setCantidad(updateItmB.getCantidad() + cantidad);
+        
+        updateItem.setItemBase(updateItmB);
+        item = itemService.createOrUpdateItem(updateItem);
+		return item;
+	}
 
 }
