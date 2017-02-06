@@ -1,16 +1,26 @@
 package com.biotrends.entities.usuario;
 
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 import com.biotrends.entities.BiotrendsBaseEntity;
 import com.biotrends.entities.consumo.Consumo;
 import com.biotrends.entities.ordencompra.OrdenCompra;
 import com.biotrends.entities.recepcion.Recepcion;
 import com.biotrends.entities.solicitud.Solicitud;
-import lombok.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.List;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * @author Oscar Malagon
@@ -48,19 +58,19 @@ public class Usuario extends BiotrendsBaseEntity{
     private String usuarioCreador;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "solicitante")
-    private List<Solicitud> solicitudesPedidas;
+    private Set<Solicitud> solicitudesPedidas;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "auxiliarOficina")
-    private List<Solicitud> solicitudesAprobadas;
+    private Set<Solicitud> solicitudesAprobadas;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario")
-    private List<Consumo> consumos;
+    private Set<Consumo> consumos;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario")
-    private List<OrdenCompra> ordenesDeCompra;
+    private Set<OrdenCompra> ordenesDeCompra;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario")
-    private List<Recepcion> recepciones;
+    private Set<Recepcion> recepciones;
 
     @Builder
     public static Usuario target(
@@ -70,11 +80,11 @@ public class Usuario extends BiotrendsBaseEntity{
         String correo,
         String laboratorio,
         String usuarioCreador,
-        List<Solicitud> solicitudesPedidas,
-        List<Solicitud> solicitudesAprobadas,
-        List<Consumo> consumos,
-        List<OrdenCompra> ordenesDeCompra,
-        List<Recepcion> recepciones){
+        Set<Solicitud> solicitudesPedidas,
+        Set<Solicitud> solicitudesAprobadas,
+        Set<Consumo> consumos,
+        Set<OrdenCompra> ordenesDeCompra,
+        Set<Recepcion> recepciones){
 
         Usuario usuario = new Usuario();
         usuario.setId(id);

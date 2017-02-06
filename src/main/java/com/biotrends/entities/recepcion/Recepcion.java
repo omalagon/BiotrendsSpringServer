@@ -1,7 +1,7 @@
 package com.biotrends.entities.recepcion;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -59,14 +59,14 @@ public class Recepcion extends BiotrendsBaseEntity{
     private ItemBase itemBase;
 
     @OneToMany(mappedBy = "recepcion")
-    private List<Evaluacion> evaluaciones;
+    private Set<Evaluacion> evaluaciones;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "REC_ID_USU",foreignKey = @ForeignKey(name = "FK_REC_ID_USU"))
     private Usuario usuario;
 
     public static Recepcion target(String id, Date fechaLlegada, Date fechaVencimiento, String mVerificacion,
-        String observaciones, ItemBase itemBase, List<Evaluacion> evaluaciones, Usuario usuario){
+        String observaciones, ItemBase itemBase, Set<Evaluacion> evaluaciones, Usuario usuario){
         Recepcion recepcion = new Recepcion();
         recepcion.setId(id);
         recepcion.setFechaLlegada(fechaLlegada);

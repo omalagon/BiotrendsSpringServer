@@ -1,14 +1,22 @@
 package com.biotrends.entities.proveedor;
 
 
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 import com.biotrends.entities.BiotrendsBaseEntity;
 import com.biotrends.entities.itemxproveedor.ItemXProveedor;
 import com.biotrends.entities.proveedor.evaluacion.Evaluacion;
-import lombok.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.List;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * @author Oscar Malagon
@@ -58,15 +66,15 @@ public class Proveedor extends BiotrendsBaseEntity{
     private String ciudad;
 
     @OneToMany(mappedBy = "proveedor")
-    private List<ItemXProveedor> itemsXProveedor;
+    private Set<ItemXProveedor> itemsXProveedor;
 
     @OneToMany(mappedBy = "proveedor")
-    private List<Evaluacion> evaluaciones;
+    private Set<Evaluacion> evaluaciones;
 
     @Builder
     public static Proveedor target(String id, String nombre, String direccion, String telefono, String fax,
         String celular, String contacto, String ciudad,
-        List<ItemXProveedor> itemsXProveedor,List<Evaluacion> evaluaciones){
+        Set<ItemXProveedor> itemsXProveedor,Set<Evaluacion> evaluaciones){
         Proveedor proveedor = new Proveedor();
         proveedor.setId(id);
         proveedor.setNombre(nombre);
