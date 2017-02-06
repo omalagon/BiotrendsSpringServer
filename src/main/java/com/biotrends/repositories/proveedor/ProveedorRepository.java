@@ -1,9 +1,9 @@
 package com.biotrends.repositories.proveedor;
 
+import org.springframework.stereotype.Repository;
+
 import com.biotrends.entities.proveedor.Proveedor;
 import com.biotrends.repositories.EntityRepository;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
 /**
  * @author Oscar Malagon

@@ -18,7 +18,9 @@ import lombok.*;
 @ApiModel(value = "UsuarioResource", description = "The Usuario Resource Representation")
 public class UsuarioResource extends EntityResource {
 
-    @JsonProperty
+	private static final long serialVersionUID = -6424853385762133289L;
+
+	@JsonProperty
     private Usuario usuario;
 
     @JsonProperty

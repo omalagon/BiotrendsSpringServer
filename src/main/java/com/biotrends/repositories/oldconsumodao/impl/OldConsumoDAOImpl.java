@@ -1,19 +1,20 @@
 package com.biotrends.repositories.oldconsumodao.impl;
 
-import com.biotrends.entities.oldconsumo.OldConsumoDTO;
-import com.biotrends.repositories.oldconsumodao.OldConsumoDAO;
-import com.biotrends.repositories.oldconsumodao.mapper.OldConsumoRowMapper;
-import com.biotrends.repositories.oldconsumodao.service.ResourceService;
+import static com.biotrends.config.repository.RepositoryConfig.DATASOURCE_OLD;
+
+import java.util.List;
+
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
-import java.util.List;
-import java.util.Optional;
-
-import static com.biotrends.config.repository.RepositoryConfig.DATASOURCE_OLD;
+import com.biotrends.entities.oldconsumo.OldConsumoDTO;
+import com.biotrends.repositories.oldconsumodao.OldConsumoDAO;
+import com.biotrends.repositories.oldconsumodao.mapper.OldConsumoRowMapper;
+import com.biotrends.repositories.oldconsumodao.service.ResourceService;
 
 /**
  * @author Oscar Malagon

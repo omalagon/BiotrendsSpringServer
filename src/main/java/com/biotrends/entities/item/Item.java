@@ -1,13 +1,17 @@
 package com.biotrends.entities.item;
 
 
-import com.biotrends.entities.BiotrendsBaseEntity;
-import com.biotrends.entities.itemxproveedor.ItemXProveedor;
-import lombok.*;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.List;
+import com.biotrends.entities.BiotrendsBaseEntity;
+
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * @author Oscar Malagon

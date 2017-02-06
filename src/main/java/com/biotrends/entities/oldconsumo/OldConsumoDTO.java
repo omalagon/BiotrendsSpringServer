@@ -1,11 +1,11 @@
 package com.biotrends.entities.oldconsumo;
 
+import java.io.Serializable;
+
 import com.biotrends.entities.item.Item;
-import com.biotrends.entities.item.ItemBase;
+
 import lombok.Builder;
 import lombok.Data;
-
-import java.io.Serializable;
 
 /**
  * @author Oscar Malagon

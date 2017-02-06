@@ -1,12 +1,18 @@
 package com.biotrends.api.usuario.impl;
 
-import com.biotrends.api.usuario.UsuarioController;
-import com.biotrends.assemblers.usuario.UsuarioAssembler;
-import com.biotrends.assemblers.usuario.UsuarioResource;
-import com.biotrends.entities.usuario.Usuario;
-import com.biotrends.services.usuario.UsuarioService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiParam;
+import static com.biotrends.api.RestConstants.APPLICATION_HAL_JSON_VALUE;
+import static org.springframework.http.HttpStatus.GONE;
+import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
+import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,15 +20,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.EntityNotFoundException;
-import java.util.List;
-import java.util.Optional;
+import com.biotrends.api.usuario.UsuarioController;
+import com.biotrends.entities.usuario.Usuario;
+import com.biotrends.services.usuario.UsuarioService;
 
-import static com.biotrends.api.RestConstants.APPLICATION_HAL_JSON_VALUE;
-import static org.springframework.http.HttpStatus.GONE;
-import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 
 /**
  * @author Oscar Malagon
@@ -34,11 +37,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 public class DefaultUsuarioControllerImpl implements UsuarioController {
 
     private final UsuarioService service;
-    private final UsuarioAssembler usuarioAssembler;
 
-    @Autowired public DefaultUsuarioControllerImpl(UsuarioService service, UsuarioAssembler usuarioAssembler) {
+    @Autowired public DefaultUsuarioControllerImpl(UsuarioService service) {
         this.service = service;
-        this.usuarioAssembler = usuarioAssembler;
     }
 
     @Override @RequestMapping(value = "/", method = GET, produces = APPLICATION_HAL_JSON_VALUE)

@@ -1,14 +1,24 @@
 package com.biotrends.entities.consumo;
 
 
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 import com.biotrends.entities.BiotrendsBaseEntity;
 import com.biotrends.entities.item.Item;
-import com.biotrends.entities.usuario.Usuario;
-import lombok.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * @author Oscar Malagon

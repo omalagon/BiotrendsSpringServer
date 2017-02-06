@@ -1,18 +1,19 @@
 package com.biotrends.api.oldconsumo;
 
-import com.biotrends.entities.item.Item;
+import static com.biotrends.api.RestConstants.APPLICATION_HAL_JSON_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.biotrends.entities.oldconsumo.OldConsumoDTO;
+
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
-
-import static com.biotrends.api.RestConstants.APPLICATION_HAL_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 /**
  * @author Oscar Malagon

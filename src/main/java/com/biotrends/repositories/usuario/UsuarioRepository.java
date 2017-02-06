@@ -1,9 +1,9 @@
 package com.biotrends.repositories.usuario;
 
+import org.springframework.stereotype.Repository;
+
 import com.biotrends.entities.usuario.Usuario;
 import com.biotrends.repositories.EntityRepository;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
 /**
  * @author Oscar Malagon

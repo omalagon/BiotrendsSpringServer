@@ -1,12 +1,25 @@
 package com.biotrends.api.item.impl;
 
-import com.biotrends.api.item.ItemController;
-import com.biotrends.entities.item.Item;
-import com.biotrends.exceptions.CommonBiotrendsRuntimeException;
-import com.biotrends.services.item.ItemService;
-import com.biotrends.utils.StringResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiParam;
+import static com.biotrends.api.RestConstants.APPLICATION_HAL_JSON_VALUE;
+import static org.springframework.http.HttpStatus.GONE;
+import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLConnection;
+import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -16,19 +29,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.EntityNotFoundException;
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.net.URLConnection;
-import java.util.List;
-import java.util.Optional;
+import com.biotrends.api.item.ItemController;
+import com.biotrends.entities.item.Item;
+import com.biotrends.services.item.ItemService;
 
-import static com.biotrends.api.RestConstants.APPLICATION_HAL_JSON_VALUE;
-import static com.google.common.base.Strings.isNullOrEmpty;
-import static org.springframework.http.HttpStatus.GONE;
-import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 
 /**
  * @author Oscar Malagon
