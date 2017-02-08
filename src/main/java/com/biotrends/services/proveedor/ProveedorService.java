@@ -1,9 +1,11 @@
 package com.biotrends.services.proveedor;
 
-import com.biotrends.entities.proveedor.Proveedor;
-
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+
+import com.biotrends.entities.proveedor.Proveedor;
 
 /**
  * @author Oscar Malagon
@@ -11,11 +13,13 @@ import java.util.Optional;
  */
 public interface  ProveedorService {
 
-    Optional<Proveedor> createOrUpdateItem(Proveedor proveedor);
+    Optional<Proveedor> createOrUpdateProveedor(Proveedor proveedor);
 
     Optional<Proveedor> findById(String id);
 
     List<Proveedor> findAll();
+    
+    Page<Proveedor> findAll(int page, int number);
 
-    Optional<Proveedor> delete(Proveedor proveedor);
+    Optional<Proveedor> delete(String id);
 }

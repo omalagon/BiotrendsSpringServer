@@ -8,6 +8,7 @@ import com.biotrends.services.item.ItemService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -37,6 +38,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
     private final ItemRepository repository;
 
+    @Autowired
     public DefaultItemService(ItemRepository repository) {
         this.repository = repository;
     }
