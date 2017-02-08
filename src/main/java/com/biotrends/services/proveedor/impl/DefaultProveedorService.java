@@ -35,29 +35,35 @@ import lombok.extern.slf4j.Slf4j;
     }
 
     @Override public Optional<Proveedor> createOrUpdateProveedor(Proveedor proveedor) {
-        if (proveedor.getId() != null) {
-            Optional<Proveedor> proveedorEncontrado = findById(proveedor.getId());
-            if (proveedorEncontrado.isPresent()) {
-                Proveedor updatedProveedor = proveedorEncontrado.get();
-                updatedProveedor.setCelular(proveedor.getCelular());
-                updatedProveedor.setCiudad(proveedor.getCiudad());
-                updatedProveedor.setContacto(proveedor.getContacto());
-                updatedProveedor.setCorreo(proveedor.getCorreo());
-                updatedProveedor.setDireccion(proveedor.getDireccion());
-                updatedProveedor.setEvaluaciones(proveedor.getEvaluaciones());
-                updatedProveedor.setFax(proveedor.getFax());
-                updatedProveedor.setItemsXProveedor(proveedor.getItemsXProveedor());
-                updatedProveedor.setNombre(proveedor.getNombre());
-                updatedProveedor.setTelefono(proveedor.getTelefono());
-                
-                return Optional.ofNullable(repository.saveAndFlush(updatedProveedor));
-            } else {
-                return Optional.ofNullable(repository.saveAndFlush(proveedor));
+        try{
+        	if (proveedor.getId() != null) {
+                Optional<Proveedor> proveedorEncontrado = findById(proveedor.getId());
+                if (proveedorEncontrado.isPresent()) {
+                    Proveedor updatedProveedor = proveedorEncontrado.get();
+                    updatedProveedor.setCelular(proveedor.getCelular());
+                    updatedProveedor.setCiudad(proveedor.getCiudad());
+                    updatedProveedor.setContacto(proveedor.getContacto());
+                    updatedProveedor.setCorreo(proveedor.getCorreo());
+                    updatedProveedor.setDireccion(proveedor.getDireccion());
+                    updatedProveedor.setEvaluaciones(proveedor.getEvaluaciones());
+                    updatedProveedor.setFax(proveedor.getFax());
+                    updatedProveedor.setItemsXProveedor(proveedor.getItemsXProveedor());
+                    updatedProveedor.setNombre(proveedor.getNombre());
+                    updatedProveedor.setTelefono(proveedor.getTelefono());
+                    
+                    return Optional.ofNullable(repository.saveAndFlush(updatedProveedor));
+                } else {
+                	return Optional.ofNullable(repository.saveAndFlush(proveedor));
+                }
             }
-        }
 
-        log.error("Error creando o actualizando el item");
-        throw new CommonBiotrendsRuntimeException("Error creando o actualizando el item");
+            return Optional.ofNullable(repository.saveAndFlush(proveedor));
+        }catch (Exception e) {
+			log.error("Ocurríó un error creando/actualizando el proveedor");
+			throw new CommonBiotrendsRuntimeException("Ocurríó un error creando/actualizando el proveedor");
+		}
+    	
+        
     }
 
     @Override public Optional<Proveedor> findById(String id) {
@@ -101,7 +107,7 @@ import lombok.extern.slf4j.Slf4j;
         Optional<Proveedor> proveedor = findById(id);
         try {
             if(proveedor.isPresent()){
-                repository.delete(proveedor.get());
+                repository.delete(id);
 
                 return proveedor;
             }

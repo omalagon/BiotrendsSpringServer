@@ -3,8 +3,10 @@ package com.biotrends.entities.proveedor;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -65,10 +67,10 @@ public class Proveedor extends BiotrendsBaseEntity{
     @NotNull
     private String ciudad;
 
-    @OneToMany(mappedBy = "proveedor")
+    @OneToMany(mappedBy = "proveedor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<ItemXProveedor> itemsXProveedor;
 
-    @OneToMany(mappedBy = "proveedor")
+    @OneToMany(mappedBy = "proveedor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Evaluacion> evaluaciones;
 
     @Builder
