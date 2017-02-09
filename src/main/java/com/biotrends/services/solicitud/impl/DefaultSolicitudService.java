@@ -20,6 +20,7 @@ import com.biotrends.entities.solicitud.Solicitud;
 import com.biotrends.entities.usuario.Usuario;
 import com.biotrends.exceptions.CommonBiotrendsRuntimeException;
 import com.biotrends.repositories.solicitud.SolicitudRepository;
+import com.biotrends.services.item.ItemService;
 import com.biotrends.services.itemxsolicitud.ItemxSolicitudService;
 import com.biotrends.services.solicitud.SolicitudService;
 import com.biotrends.services.usuario.UsuarioService;
@@ -37,12 +38,17 @@ public class DefaultSolicitudService implements SolicitudService{
 	private final SolicitudRepository repository;
 	private final UsuarioService usuarioService;
 	private final ItemxSolicitudService ixsService;
+	private final ItemService itemService;
 	
 	@Autowired
-	public DefaultSolicitudService(SolicitudRepository repository, UsuarioService usuarioService, ItemxSolicitudService ixsService) {
+	public DefaultSolicitudService(SolicitudRepository repository, 
+			UsuarioService usuarioService, 
+			ItemxSolicitudService ixsService,
+			ItemService itemService) {
 		this.repository = repository;
 		this.usuarioService = usuarioService;
 		this.ixsService = ixsService;
+		this.itemService = itemService;
 	}
 	
 	@Override
@@ -57,6 +63,7 @@ public class DefaultSolicitudService implements SolicitudService{
 			checkArgument(auxOfi.isPresent(), "El auxiliar de oficina ingresado no existe");			
 		}
 		
+		validarExistenciaDeItems(solicitud);
 		
 		if(solicitud.getId() != null){
 			Optional<Solicitud> solicitudEncontrada = findById(solicitud.getId());
@@ -80,6 +87,20 @@ public class DefaultSolicitudService implements SolicitudService{
 		}
 		
 		return Optional.ofNullable(repository.saveAndFlush(solicitud));
+	}
+
+	/**
+	 * @param solicitud
+	 */
+	private void validarExistenciaDeItems(Solicitud solicitud) {
+		if(solicitud.getItmxsol() != null && !solicitud.getItmxsol().isEmpty()){
+			for(ItemXSolicitud ixs : solicitud.getItmxsol()){
+				if(!itemService.findById(ixs.getIdItem()).isPresent()){
+					log.error("El item [" + ixs.getIdItem() + "] no existe");
+		            throw new EntityNotFoundException();
+				}
+			}
+		}
 	}
 
 	/**
