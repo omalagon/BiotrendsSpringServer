@@ -1,7 +1,3 @@
-/**
- * @author Oscar Malagon
- * @since 9/02/2017
- */
 package com.biotrends.services.itemxsolicitud;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -18,7 +14,7 @@ import com.biotrends.repositories.itemxsolicitud.ItemxSolicitudRepository;
 
 /**
  * @author Oscar Malagon
- *
+ * @since 09/02/2017
  */
 @Service
 public class DefaultItemxSolicitudService implements ItemxSolicitudService {
@@ -29,11 +25,6 @@ public class DefaultItemxSolicitudService implements ItemxSolicitudService {
 		this.repository = repository;
 	}
 
-	@Override
-	public Optional<ItemXSolicitud> createOrUpdateItemxProveedor(ItemXSolicitud itemxProveedor) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Optional<ItemXSolicitud> findById(String id) {
@@ -42,17 +33,6 @@ public class DefaultItemxSolicitudService implements ItemxSolicitudService {
 		return Optional.ofNullable(repository.findOne(id));
 	}
 
-	@Override
-	public Page<ItemXSolicitud> findAll(int page, int size) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<ItemXSolicitud> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Optional<ItemXSolicitud> delete(String id) {
