@@ -15,10 +15,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.biotrends.entities.itemxsolicitud.ItemXSolicitud;
 import com.biotrends.entities.solicitud.Solicitud;
 import com.biotrends.entities.usuario.Usuario;
 import com.biotrends.exceptions.CommonBiotrendsRuntimeException;
 import com.biotrends.repositories.solicitud.SolicitudRepository;
+import com.biotrends.services.itemxsolicitud.ItemxSolicitudService;
 import com.biotrends.services.solicitud.SolicitudService;
 import com.biotrends.services.usuario.UsuarioService;
 
@@ -34,11 +36,13 @@ public class DefaultSolicitudService implements SolicitudService{
 	
 	private final SolicitudRepository repository;
 	private final UsuarioService usuarioService;
+	private final ItemxSolicitudService ixsService;
 	
 	@Autowired
-	public DefaultSolicitudService(SolicitudRepository repository, UsuarioService usuarioService) {
+	public DefaultSolicitudService(SolicitudRepository repository, UsuarioService usuarioService, ItemxSolicitudService ixsService) {
 		this.repository = repository;
 		this.usuarioService = usuarioService;
+		this.ixsService = ixsService;
 	}
 	
 	@Override
@@ -56,13 +60,17 @@ public class DefaultSolicitudService implements SolicitudService{
 		
 		if(solicitud.getId() != null){
 			Optional<Solicitud> solicitudEncontrada = findById(solicitud.getId());
-			if(solicitudEncontrada.isPresent()){
+			if(solicitudEncontrada.isPresent() && !solicitudEncontrada.get().getEsRevisado()){
+				
+				deleteItemsXSolicitud(solicitudEncontrada.get());
+				
 				Solicitud updatedSolicitud = solicitudEncontrada.get();
 				updatedSolicitud.setAuxiliarOficina(solicitud.getAuxiliarOficina());
 				updatedSolicitud.setEsRevisado(solicitud.getEsRevisado());
 				updatedSolicitud.setFechaSolicitud(solicitud.getFechaSolicitud());
 				updatedSolicitud.setObservaciones(solicitud.getObservaciones());
 				updatedSolicitud.setSolicitante(solicitud.getSolicitante());
+				updatedSolicitud.setItmxsol(solicitud.getItmxsol());
 				
 				return Optional.ofNullable(repository.saveAndFlush(updatedSolicitud));
 			}
@@ -72,6 +80,17 @@ public class DefaultSolicitudService implements SolicitudService{
 		}
 		
 		return Optional.ofNullable(repository.saveAndFlush(solicitud));
+	}
+
+	/**
+	 * @param solicitud
+	 */
+	private void deleteItemsXSolicitud(Solicitud solicitud) {
+		if(solicitud.getItmxsol() != null && !solicitud.getItmxsol().isEmpty()){
+			for(ItemXSolicitud ixs : solicitud.getItmxsol()){
+				ixsService.delete(ixs.getId());
+			}
+		}
 	}
 
 	@Override

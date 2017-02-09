@@ -32,7 +32,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 
 @RestController
-@Api(value = "api-proveedor", description = "Consumo MVC EndPoint", produces = APPLICATION_HAL_JSON_VALUE)
+@Api(value = "api-proveedor", description = "Proveedor MVC EndPoint", produces = APPLICATION_HAL_JSON_VALUE)
 @RequestMapping(value = "/api/proveedor", produces = APPLICATION_HAL_JSON_VALUE)
 public class DefaultProveedorController implements ProveedorController{
 
@@ -68,7 +68,7 @@ public class DefaultProveedorController implements ProveedorController{
             return new ResponseEntity<>(provById.get(), OK);
         }
 
-        throw new EntityNotFoundException("Consumo not found by id [" + id + "]");
+        throw new EntityNotFoundException("Proveedor not found by id [" + id + "]");
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class DefaultProveedorController implements ProveedorController{
             return new ResponseEntity<>(provById.get(), GONE);
         }
 
-        throw new EntityNotFoundException("Consumo not found by id [" + id + "]");
+        throw new EntityNotFoundException("Proveedor not found by id [" + id + "]");
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class DefaultProveedorController implements ProveedorController{
                 return new ResponseEntity<>(provGuardado.get(), OK);
             }
 
-            throw new EntityNotFoundException("Consumo no guardado");
+            throw new EntityNotFoundException("Proveedor no guardado");
         }
         return null;
 	}

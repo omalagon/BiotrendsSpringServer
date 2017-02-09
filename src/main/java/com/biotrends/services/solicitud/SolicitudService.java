@@ -12,7 +12,7 @@ import java.util.Optional;
  */
 public interface SolicitudService {
 
-    Optional<Solicitud> createOrUpdateSolicitud(Solicitud Solicitud);
+    Optional<Solicitud> createOrUpdateSolicitud(Solicitud solicitud);
 
     Optional<Solicitud> findById(String id);
 

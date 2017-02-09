@@ -16,10 +16,10 @@ import com.biotrends.repositories.EntityRepository;
 @Repository
 public interface ItemxProveedorRepository extends EntityRepository<ItemXProveedor>{
 
-	@Query("SELECT ixp from ItemXProveedor ixp where ixp.item.id = :idItem AND ixp.proveedor.id = :idProveedor")
+	@Query("SELECT ixp from ItemXProveedor ixp where ixp.item = :idItem AND ixp.proveedor = :idProveedor")
 	ItemXProveedor findByItsIds(@Param("idItem") final String idItem,@Param("idProveedor") final String idProveedor);
 	
-	@Query("SELECT ixp from ItemXProveedor ixp where ixp.proveedor.id = :idProveedor")
+	@Query("SELECT ixp from ItemXProveedor ixp where ixp.proveedor = :idProveedor")
 	Set<ItemXProveedor> findByIdProveedor(@Param("idProveedor") final String idProveedor);
 	
 }

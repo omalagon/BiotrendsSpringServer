@@ -1,13 +1,18 @@
 package com.biotrends.entities.solicitud;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.biotrends.entities.BiotrendsBaseEntity;
+import com.biotrends.entities.itemxsolicitud.ItemXSolicitud;
 
 import lombok.Builder;
 import lombok.Data;
@@ -43,16 +48,25 @@ public class Solicitud extends BiotrendsBaseEntity {
 
     @Column(name = "SOL_ID_USU_AUX_OFI")
     private String auxiliarOficina;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<ItemXSolicitud> itmxsol;
 
     @Builder
-    public static Solicitud target(Date fechaSolicitud, String observaciones, Boolean esRevisado, String solicitante, String auxiliarOficina ){
+    public static Solicitud target(Date fechaSolicitud,
+    		String observaciones, 
+    		Boolean esRevisado, 
+    		String solicitante, 
+    		String auxiliarOficina,
+    		Set<ItemXSolicitud> itmxsol){
         Solicitud solicitud = new Solicitud();
         solicitud.setFechaSolicitud(fechaSolicitud);
         solicitud.setObservaciones(observaciones);
         solicitud.setEsRevisado(esRevisado);
         solicitud.setSolicitante(solicitante);
         solicitud.setAuxiliarOficina(auxiliarOficina);
-
+        solicitud.setItmxsol(itmxsol);
+        
         return solicitud;
     }
 }
