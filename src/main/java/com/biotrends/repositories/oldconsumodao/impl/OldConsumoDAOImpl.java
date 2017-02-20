@@ -44,7 +44,19 @@ public class OldConsumoDAOImpl extends JdbcDaoSupport implements OldConsumoDAO {
     @Override
     public List<OldConsumoDTO> getConsumos() {
 
-        createViews();
+        createViews(null);
+        String query = resourceService.getResourceAsString(QUERY_CONSUMOS);
+        List<OldConsumoDTO> lstConsumos = getJdbcTemplate().query(query, mapper);
+        deleteViews();
+
+        return lstConsumos;
+
+    }
+    
+    @Override
+    public List<OldConsumoDTO> getConsumos(String fecha) {
+
+        createViews(fecha);
         String query = resourceService.getResourceAsString(QUERY_CONSUMOS);
         List<OldConsumoDTO> lstConsumos = getJdbcTemplate().query(query, mapper);
         deleteViews();
@@ -53,11 +65,14 @@ public class OldConsumoDAOImpl extends JdbcDaoSupport implements OldConsumoDAO {
 
     }
 
-    private void createViews(){
+    private void createViews(String fecha){
+    	if(fecha == null){
+    		fecha = "1970-01-01";
+    	}
         String query1 = resourceService.getResourceAsString(QUERY_VIEW_1);
         String query2 = resourceService.getResourceAsString(QUERY_VIEW_2);
-        getJdbcTemplate().update(query1);
-        getJdbcTemplate().update(query2);
+        getJdbcTemplate().update(query1, fecha);
+        getJdbcTemplate().update(query2, fecha);
     }
 
     private void deleteViews(){

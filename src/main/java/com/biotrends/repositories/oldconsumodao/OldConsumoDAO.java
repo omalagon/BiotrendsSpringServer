@@ -11,4 +11,6 @@ import java.util.List;
 public interface OldConsumoDAO {
 
     List<OldConsumoDTO> getConsumos();
+    
+    List<OldConsumoDTO> getConsumos(String fecha);
 }

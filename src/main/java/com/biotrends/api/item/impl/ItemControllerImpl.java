@@ -111,7 +111,7 @@ public class ItemControllerImpl implements ItemController {
         File reporte = new File(filePath);
         String type = URLConnection.guessContentTypeFromName(reporte.getName());
         response.setContentType(type);
-        response.setHeader("Content-Disposition", String.format("inline; filename=\"" + reporte.getName() +"\""));
+        response.setHeader("Content-Disposition", String.format("inline; filename=\"".concat(reporte.getName()).concat("\"")));
         response.setContentLength((int)reporte.length());
 
         InputStream inputStream = new BufferedInputStream(new FileInputStream(reporte));

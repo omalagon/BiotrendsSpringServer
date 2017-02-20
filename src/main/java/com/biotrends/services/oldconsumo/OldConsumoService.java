@@ -1,8 +1,8 @@
 package com.biotrends.services.oldconsumo;
 
-import com.biotrends.entities.oldconsumo.OldConsumoDTO;
-
 import java.util.List;
+
+import com.biotrends.entities.oldconsumo.OldConsumoDTO;
 
 /**
  * @author Oscar Malagon
@@ -11,4 +11,8 @@ import java.util.List;
 public interface OldConsumoService {
 
     List<OldConsumoDTO> listadoDeConsumos();
+    
+    List<OldConsumoDTO> listadoDeConsumosPorFecha(String fecha);
+    
+    String generateReport(String fecha);
 }
