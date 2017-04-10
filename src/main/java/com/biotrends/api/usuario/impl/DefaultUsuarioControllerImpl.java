@@ -50,7 +50,7 @@ public class DefaultUsuarioControllerImpl implements UsuarioController {
     }
 
     @Override @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
-    public ResponseEntity<Usuario> getItemById(@PathVariable final String id) {
+    public ResponseEntity<Usuario> getUsuarioById(@PathVariable final String id) {
         Optional<Usuario> usuarioById = service.findById(id);
         if (usuarioById.isPresent()) {
 
@@ -62,7 +62,7 @@ public class DefaultUsuarioControllerImpl implements UsuarioController {
 
     @Override
     @RequestMapping(value = "/delete/{id}", method = DELETE, produces = APPLICATION_HAL_JSON_VALUE)
-    public ResponseEntity<Usuario> deleteItemById(@PathVariable final String id) {
+    public ResponseEntity<Usuario> deleteUsuarioById(@PathVariable final String id) {
         Optional<Usuario> usuarioById = service.delete(id);
         if (usuarioById.isPresent()) {
 
@@ -74,20 +74,32 @@ public class DefaultUsuarioControllerImpl implements UsuarioController {
 
     @Override
     @RequestMapping(value = "/create", method = POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_HAL_JSON_VALUE)
-    public ResponseEntity<Usuario> createItem(
+    public ResponseEntity<Usuario> createUsuario(
         @ApiParam(value = "The usuario object", required = true) @RequestBody(required = true)
             Usuario usuario) {
 
         if (usuario != null) {
 
-            Optional<Usuario> usuarioGuardado = service.createOrUpdateItem(usuario);
+            Optional<Usuario> usuarioGuardado = service.createOrUpdateUsuario(usuario);
             if (usuarioGuardado.isPresent()) {
-                return new ResponseEntity<Usuario>(usuarioGuardado.get(), OK);
+                return new ResponseEntity<>(usuarioGuardado.get(), OK);
             }
 
             throw new EntityNotFoundException("Usuario no guardado");
         }
         return null;
     }
+
+	@Override
+	@RequestMapping(value = "/login/{id}/{password}", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
+	public ResponseEntity<Usuario> loginUser(@PathVariable final String id, @PathVariable final String password) {
+		
+		Optional<Usuario> usuario = service.findByIdPassword(id, password);
+		if(usuario.isPresent()){
+			return new ResponseEntity<>(usuario.get(), OK);
+		}
+
+		throw new EntityNotFoundException("Credenciales invalidas".concat(id).concat("-->").concat(password));
+	}
 
 }

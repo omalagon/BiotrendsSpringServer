@@ -32,7 +32,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 @Slf4j @Service public class DefaultItemService implements ItemService {
 
-    private static final String FOLDER_PATH = "C:\\Users\\Oscar Malagon\\IdeaProjects\\Files\\";
+    private static final String FOLDER_PATH = "D:\\Documents\\NetBeansProjects\\Consumos\\";
     private static final String FILE_NAME = "InventarioBiotrends_";
     private static final String XLS_EXTENTION = "_.xls";
 

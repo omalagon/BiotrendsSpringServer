@@ -37,7 +37,7 @@ public interface UsuarioController {
         @ApiResponse(code = 404, message = "Usuario Not Found"),
         @ApiResponse(code = 500, message = "Unexpected Internal Server Error")})
     @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
-    public ResponseEntity<Usuario> getItemById(@PathVariable final String id);
+    public ResponseEntity<Usuario> getUsuarioById(@PathVariable final String id);
 
     @ApiModelProperty(position = 3, required = true, value = "Deletes an usuario given its id")
     @ApiOperation(value = "Delete usuario", notes = "Delete usuario that match the given id", response = Usuario.class, produces = APPLICATION_HAL_JSON_VALUE)
@@ -47,7 +47,7 @@ public interface UsuarioController {
         @ApiResponse(code = 404, message = "Usuario Not Found"),
         @ApiResponse(code = 500, message = "Unexpected Internal Server Error")})
     @RequestMapping(value = "/delete/{id}", method = DELETE, produces = APPLICATION_HAL_JSON_VALUE)
-    public ResponseEntity<Usuario> deleteItemById(@PathVariable final String id);
+    public ResponseEntity<Usuario> deleteUsuarioById(@PathVariable final String id);
 
     @ApiModelProperty(position = 4, required = true, value = "Creates an usuario")
     @ApiOperation(value = "Create usuario", notes = "Creates an usuario given its information", response = Usuario.class, produces = APPLICATION_HAL_JSON_VALUE)
@@ -57,7 +57,18 @@ public interface UsuarioController {
         @ApiResponse(code = 404, message = "Usuario Not created"),
         @ApiResponse(code = 500, message = "Unexpected Internal Server Error")})
     @RequestMapping(value = "/create", method = POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_HAL_JSON_VALUE)
-    public ResponseEntity<Usuario> createItem(
+    public ResponseEntity<Usuario> createUsuario(
         @ApiParam(value = "The usuario object", required = true) @RequestBody(required = true)
             Usuario usuario);
+    
+    @ApiModelProperty(position = 5, required = true, value = "Login by id and password")
+    @ApiOperation(value = "Login by username and password", notes = "Login by id and password", response = Usuario.class, produces = APPLICATION_HAL_JSON_VALUE)
+    @ApiResponses({@ApiResponse(code = 200, message = "Login by username and password"),
+        @ApiResponse(code = 400, message = "Bad Request"),
+        @ApiResponse(code = 401, message = "Unauthorized Request"),
+        @ApiResponse(code = 404, message = "Usuario Not created"),
+        @ApiResponse(code = 500, message = "Unexpected Internal Server Error")})
+    @RequestMapping(value = "/login/{id}/{password}", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
+    public ResponseEntity<Usuario> loginUser(
+    		@PathVariable final String id, @PathVariable final String password);
 }

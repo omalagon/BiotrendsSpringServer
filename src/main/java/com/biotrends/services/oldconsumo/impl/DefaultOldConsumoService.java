@@ -33,7 +33,7 @@ import java.util.List;
 @Service
 public class DefaultOldConsumoService implements OldConsumoService {
 
-	private static final String FOLDER_PATH = "C:\\Users\\Oscar Malagon\\IdeaProjects\\Files\\";
+	private static final String FOLDER_PATH = "D:\\Documents\\NetBeansProjects\\Consumos\\";
     private static final String FILE_NAME = "Consumos_";
     private static final String XLS_EXTENTION = "_.xls";
     

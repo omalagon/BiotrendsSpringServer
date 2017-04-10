@@ -18,11 +18,7 @@ public final class Utils {
 
     public static Boolean stringToBoolean(String value){
         if(null != value){
-            if(value.equalsIgnoreCase("SI")){
-                return true;
-            }else{
-                return false;
-            }
+            return "SI".equalsIgnoreCase(value);
         }
 
         return false;

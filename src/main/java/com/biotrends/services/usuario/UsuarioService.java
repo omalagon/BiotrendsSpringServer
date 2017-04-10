@@ -11,11 +11,13 @@ import java.util.Optional;
  */
 public interface UsuarioService {
 
-    Optional<Usuario> createOrUpdateItem(Usuario usuario);
+    Optional<Usuario> createOrUpdateUsuario(Usuario usuario);
 
     Optional<Usuario> findById(String id);
 
     List<Usuario> findAll();
 
     Optional<Usuario> delete(String id);
+
+	Optional<Usuario> findByIdPassword(String id, String password);
 }

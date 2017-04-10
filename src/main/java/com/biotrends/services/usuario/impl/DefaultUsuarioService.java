@@ -4,6 +4,8 @@ import com.biotrends.entities.usuario.Usuario;
 import com.biotrends.exceptions.CommonBiotrendsRuntimeException;
 import com.biotrends.repositories.usuario.UsuarioRepository;
 import com.biotrends.services.usuario.UsuarioService;
+import com.biotrends.utils.security.Encryptor;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +31,7 @@ public class DefaultUsuarioService implements UsuarioService {
         this.repository = repository;
     }
 
-    @Override public Optional<Usuario> createOrUpdateItem(Usuario usuario) {
+    @Override public Optional<Usuario> createOrUpdateUsuario(Usuario usuario) {
         checkNotNull(usuario, "El usuario no puede ser nulo");
 
         if (usuario.getId() != null) {
@@ -38,11 +40,12 @@ public class DefaultUsuarioService implements UsuarioService {
                 Usuario usuarioToUpdate = usuarioEncontrado.get();
                 usuarioToUpdate.setNombre(usuario.getNombre());
                 usuarioToUpdate.setCorreo(usuario.getCorreo());
-                usuarioToUpdate.setPassword(usuario.getPassword());
+                usuarioToUpdate.setPassword(Encryptor.encrypt(usuario.getPassword()));
                 usuarioToUpdate.setLaboratorio(usuario.getLaboratorio());
 
                 return Optional.ofNullable(repository.saveAndFlush(usuarioToUpdate));
             } else {
+            	usuario.setPassword(Encryptor.encrypt(usuario.getPassword()));
                 return Optional.ofNullable(repository.saveAndFlush(usuario));
             }
         }
@@ -98,10 +101,20 @@ public class DefaultUsuarioService implements UsuarioService {
 
     private boolean usuarioTieneAsociaciones(Usuario usuario) {
 
-        return usuario.getConsumos() == null &&
-            usuario.getOrdenesDeCompra() == null &&
-            usuario.getRecepciones() == null &&
-            usuario.getSolicitudesPedidas() == null &&
-            usuario.getSolicitudesAprobadas() == null ;
+    	boolean validarSolicitudes = usuario.getSolicitudesPedidas()   == null &&
+                					 usuario.getSolicitudesAprobadas() == null;
+    	boolean validarConsumos = usuario.getConsumos() == null &&
+				                  usuario.getOrdenesDeCompra() == null &&
+				                  usuario.getRecepciones() == null;
+        return  validarConsumos && validarSolicitudes ;
     }
+
+	@Override
+	public Optional<Usuario> findByIdPassword(String id, String password) {
+		checkNotNull(id, "El usuario no pude ser null");
+		checkNotNull(password, "El password no pude ser null");
+		password = Encryptor.encrypt(password);
+		
+		return Optional.ofNullable(repository.findByIdAndPassword(id, password));
+	}
 }
