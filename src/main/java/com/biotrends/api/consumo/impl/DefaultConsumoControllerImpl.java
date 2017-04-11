@@ -121,4 +121,11 @@ public class DefaultConsumoControllerImpl implements ConsumoController {
         throw new CommonBiotrendsRuntimeException("Not implemented yet");
     }
 
+	@Override
+	@RequestMapping(value = "/item/{id}", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
+	public ResponseEntity<List<Consumo>> getConsumoByItemId(@PathVariable final String id) {
+		List<Consumo> consumos = service.findByIdItem(id);
+		return new ResponseEntity<>(consumos, OK);
+	}
+
 }

@@ -84,4 +84,14 @@ public interface ConsumoController {
         @ApiResponse(code = 500, message = "Unexpected Internal Server Error")})
     @RequestMapping(value = "/report", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
     public void generateReport(HttpServletResponse response) throws IOException;
+    
+    @ApiModelProperty(position = 7, required = true, value = "Consumo given the item id")
+    @ApiOperation(value = "Get consumo given the item id", notes = "Find the consumo that match the given item id", response = Consumo.class, produces = APPLICATION_HAL_JSON_VALUE)
+    @ApiResponses({@ApiResponse(code = 200, message = "An Consumo from given Id"),
+        @ApiResponse(code = 400, message = "Bad Request"),
+        @ApiResponse(code = 401, message = "Unauthorized Request"),
+        @ApiResponse(code = 404, message = "Consumo Not Found"),
+        @ApiResponse(code = 500, message = "Unexpected Internal Server Error")})
+    @RequestMapping(value = "/item/{id}", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
+    public ResponseEntity<List<Consumo>> getConsumoByItemId(@PathVariable final String id);
 }

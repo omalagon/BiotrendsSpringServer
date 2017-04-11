@@ -21,5 +21,9 @@ public interface ConsumoService {
     List<Consumo> findAll();
 
     Optional<Consumo> delete(String id);
+    
+    Consumo getUltimoConsumo(String idItem);
+    
+    List<Consumo> findByIdItem(String idItem);
 }
 

@@ -48,7 +48,7 @@ public interface SolicitudController {
         @ApiResponse(code = 401, message = "Unauthorized Request"),
         @ApiResponse(code = 404, message = "Solicitud Not Found"),
         @ApiResponse(code = 500, message = "Unexpected Internal Server Error")})
-    @RequestMapping(value = "/", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
+    @RequestMapping(value = "/{page}/{size}", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
     public ResponseEntity<Page<Solicitud>> getSolicitudes(@PathVariable final int page,
                                                @PathVariable final int size);
 

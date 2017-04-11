@@ -1,20 +1,21 @@
 package com.biotrends.services.test.item;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
+
+import java.util.Optional;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+
 import com.biotrends.entities.item.Item;
 import com.biotrends.entities.item.ItemBase;
 import com.biotrends.repositories.item.ItemRepository;
 import com.biotrends.services.item.ItemService;
 import com.biotrends.services.item.impl.DefaultItemService;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-
-import java.util.Optional;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.MockitoAnnotations.initMocks;
-import static org.mockito.Mockito.when;
 
 
 /**

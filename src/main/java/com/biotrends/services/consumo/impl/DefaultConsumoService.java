@@ -116,7 +116,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
     	checkNotNull(id, "El id del consumo no puede ser nulo");
     	
         Optional<Consumo> consumoById = findById(id);
-        
         try {
             if(consumoById.isPresent()){
             	Optional<Item> item = itemService.findById(consumoById.get().getItem().getId());
@@ -156,6 +155,25 @@ import static com.google.common.base.Preconditions.checkNotNull;
         updateItem.setItemBase(updateItmB);
         item = itemService.createOrUpdateItem(updateItem);
 		return item;
+	}
+
+	@Override
+	public Consumo getUltimoConsumo(String idItem) {
+		checkNotNull(idItem, "El id del item no puede ser null");
+		
+		List<Consumo> ultimoConsumoById = repository.getUltimoConsumoById(idItem);
+		if(!ultimoConsumoById.isEmpty()){
+			return ultimoConsumoById.get(0);			
+		}
+		
+		return null;
+	}
+
+	@Override
+	public List<Consumo> findByIdItem(String idItem) {
+		checkNotNull(idItem, "El id del item no puede ser null");
+		
+		return repository.findConsumoByItemId(idItem);
 	}
 
 }
