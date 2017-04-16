@@ -94,7 +94,8 @@ public class DefaultOldConsumoService implements OldConsumoService {
         return fileName;
 	}
 	
-    private void createHeaderRow(Sheet sheet){
+    @SuppressWarnings("deprecation")
+	private void createHeaderRow(Sheet sheet){
         CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
         Font font = sheet.getWorkbook().createFont();
         font.setBold(true);

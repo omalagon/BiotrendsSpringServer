@@ -30,7 +30,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * @author Oscar Malagon
  * @since 22/12/2016.
  */
-@Slf4j @Service public class DefaultItemService implements ItemService {
+@Slf4j 
+@Service
+public class DefaultItemService implements ItemService {
 
     private static final String FOLDER_PATH = "D:\\Documents\\NetBeansProjects\\Consumos\\";
     private static final String FILE_NAME = "InventarioBiotrends_";
@@ -185,7 +187,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
         cell.setCellValue(booleanToYesNoString(item.getItemBase().getCEsp()));
     }
 
-    private void createHeaderRow(Sheet sheet){
+    @SuppressWarnings("deprecation")
+	private void createHeaderRow(Sheet sheet){
         CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
         Font font = sheet.getWorkbook().createFont();
         font.setBold(true);
@@ -226,7 +229,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
     }
 
-    private Sort orderByInventarioAndDescripcion() {
+	@SuppressWarnings("unused")
+	private Sort orderByInventarioAndDescripcion() {
         return new Sort(Sort.Direction.ASC, "itemBase.inventario", "itemBase.descripcion");
     }
 }

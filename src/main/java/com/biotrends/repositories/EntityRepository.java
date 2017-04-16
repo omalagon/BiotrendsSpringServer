@@ -1,10 +1,10 @@
 package com.biotrends.repositories;
 
-import com.biotrends.entities.BiotrendsBaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.query.QueryByExampleExecutor;
+
+import com.biotrends.entities.BiotrendsBaseEntity;
 
 /**
  * @author PSL.SA - OMalagonM

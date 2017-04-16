@@ -11,13 +11,13 @@ public interface ResourceService {
 
     String getResourceAsString(String name);
 
-    String getResourceAsString(Class context, String name);
+    String getResourceAsString(Class<?> context, String name);
 
     URL getResourceAsURL(String name);
 
-    URL getResourceAsURL(Class context, String name);
+    URL getResourceAsURL(Class<?> context, String name);
 
     InputStream getResourceAsStream(String name);
 
-    InputStream getResourceAsStream(Class context, String name);
+    InputStream getResourceAsStream(Class<?> context, String name);
 }

@@ -121,4 +121,11 @@ public class DefaultSolicitudControllerImpl implements SolicitudController {
         throw new CommonBiotrendsRuntimeException("Not implemented yet");
     }
 
+	@Override
+	@RequestMapping(value = "/solicitante/{idSolicitante}", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
+	public ResponseEntity<List<Solicitud>> getSolicitudesByIdSolicitante(@PathVariable final String idSolicitante) {
+		List<Solicitud> solicitudes = service.findAllSolicitudesByIdSolicitante(idSolicitante);
+		return new ResponseEntity<>(solicitudes, OK);
+	}
+
 }

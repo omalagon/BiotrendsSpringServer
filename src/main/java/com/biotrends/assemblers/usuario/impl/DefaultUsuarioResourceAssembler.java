@@ -1,6 +1,6 @@
 package com.biotrends.assemblers.usuario.impl;
 
-import com.biotrends.assemblers.usuario.UsuarioAssembler;
+import com.biotrends.assemblers.usuario.UsuarioResourceAssembler;
 import com.biotrends.assemblers.usuario.UsuarioResource;
 import com.biotrends.entities.usuario.Usuario;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
  * @author Oscar Malagon
  * @since 4/02/2017.
  */
-@Service public class DefaultUsuarioResourceAssembler implements UsuarioAssembler {
+@Service public class DefaultUsuarioResourceAssembler implements UsuarioResourceAssembler {
 
     @Override public Usuario fromResource(UsuarioResource resource) {
         if (resource != null) {

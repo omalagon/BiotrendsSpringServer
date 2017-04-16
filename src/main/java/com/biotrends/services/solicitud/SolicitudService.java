@@ -21,5 +21,7 @@ public interface SolicitudService {
     List<Solicitud> findAll();
 
     Optional<Solicitud> delete(String id);
+    
+    List<Solicitud> findAllSolicitudesByIdSolicitante(String idSolicitante);
 }
 

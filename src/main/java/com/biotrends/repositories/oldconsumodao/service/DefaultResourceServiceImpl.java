@@ -25,7 +25,7 @@ public class DefaultResourceServiceImpl implements ResourceService{
     }
 
     @Override
-    public String getResourceAsString(Class context, String name) {
+    public String getResourceAsString(Class<?> context, String name) {
         validateName(name);
 
         try {
@@ -43,11 +43,11 @@ public class DefaultResourceServiceImpl implements ResourceService{
     }
 
     @Override
-    public URL getResourceAsURL(Class context, String name) {
+    public URL getResourceAsURL(Class<?> context, String name) {
         validateName(name);
 
         try {
-            Optional<Class> classContext = Optional.ofNullable(context);
+            Optional<Class<?>> classContext = Optional.ofNullable(context);
             if (classContext.isPresent()) {
                 return getResource(classContext.get(), name);
             } else {
@@ -64,7 +64,7 @@ public class DefaultResourceServiceImpl implements ResourceService{
     }
 
     @Override
-    public InputStream getResourceAsStream(Class context, String name) {
+    public InputStream getResourceAsStream(Class<?> context, String name) {
         validateName(name);
 
         try {

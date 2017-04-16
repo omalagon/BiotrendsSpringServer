@@ -14,7 +14,6 @@ import lombok.*;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@SuppressWarnings("squid:S1068")
 @ApiModel(value = "UsuarioResource", description = "The Usuario Resource Representation")
 public class UsuarioResource extends EntityResource {
 

@@ -34,7 +34,6 @@ import lombok.ToString;
 @Table(name = "BIO_RECEPCION")
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@SuppressWarnings("squid:S1068")
 public class Recepcion extends BiotrendsBaseEntity{
 
     private static final long serialVersionUID = -90984896691195505L;

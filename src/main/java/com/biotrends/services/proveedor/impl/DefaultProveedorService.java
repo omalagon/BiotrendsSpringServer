@@ -25,7 +25,9 @@ import lombok.extern.slf4j.Slf4j;
  * @author Oscar Malagon
  * @since 22/12/2016.
  */
-@Slf4j @Service public class DefaultProveedorService implements ProveedorService {
+@Slf4j 
+@Service 
+public class DefaultProveedorService implements ProveedorService {
 
     private final ProveedorRepository repository;
 

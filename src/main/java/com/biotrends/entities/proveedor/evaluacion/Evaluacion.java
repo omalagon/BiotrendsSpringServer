@@ -18,7 +18,6 @@ import javax.persistence.*;
 @Table(name = "BIO_PROV_EV")
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@SuppressWarnings("squid:S1068")
 public class Evaluacion extends BiotrendsBaseEntity {
 
     private static final long serialVersionUID = -7751736715883179304L;

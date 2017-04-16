@@ -16,7 +16,6 @@ public class DataSourceUtil {
     private static final String DEFAULT_SCHEMA_SQL = "ALTER SESSION SET CURRENT_SCHEMA=";
 
     @Builder
-    @SuppressWarnings("squid:S00107")
     public static DataSource target(String driver, String url,
         String username, String password,
         String schema) {

@@ -1,5 +1,6 @@
 package com.biotrends.services.ordencompra;
 
+import com.biotrends.entities.itemxsolicitud.ItemXSolicitud;
 import com.biotrends.entities.ordencompra.OrdenCompra;
 
 import java.util.List;
@@ -11,11 +12,10 @@ import java.util.Optional;
  */
 public interface OrdenCompraService {
 
-    Optional<OrdenCompra> createOrUpdateItem(OrdenCompra ordenCompra);
+    Optional<OrdenCompra> createOrUpdateOrdenCompra(OrdenCompra ordenCompra, List<ItemXSolicitud> itemsSolicitud);
 
-    Optional<OrdenCompra> findById(String id);
+    Optional<OrdenCompra> findByNumeroOrden(Long NumeroOrden);
 
     List<OrdenCompra> findAll();
 
-    Optional<OrdenCompra> delete(OrdenCompra ordenCompra);
 }

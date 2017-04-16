@@ -10,17 +10,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.biotrends.entities.BiotrendsBaseEntity;
 import com.biotrends.entities.itemxsolicitud.ItemXSolicitud;
-import com.biotrends.repositories.solicitud.SolicitudRepository;
 
 import lombok.Builder;
 import lombok.Data;
@@ -36,7 +31,6 @@ import lombok.ToString;
 @Table(name = "BIO_SOLICITUD")
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@SuppressWarnings("squid:S1068")
 @SequenceGenerator(name="idSolicitudGenerator", initialValue = 1)
 public class Solicitud extends BiotrendsBaseEntity {
 

@@ -27,7 +27,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * @author Oscar Malagon
  * @since 14/01/2017.
  */
-@Service @Slf4j public class DefaultConsumoService implements ConsumoService {
+@Service 
+@Slf4j
+public class DefaultConsumoService implements ConsumoService {
 
     private static final String OPERATOR_MINUS = "-";
     private static final String OPERATOR_PLUS = "+";

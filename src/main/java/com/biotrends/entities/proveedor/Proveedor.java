@@ -30,7 +30,6 @@ import lombok.ToString;
 @Table(name = "BIO_PROVEEDOR")
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@SuppressWarnings("squid:S1068")
 public class Proveedor extends BiotrendsBaseEntity{
 
     private static final long serialVersionUID = -6608617091315373335L;
@@ -75,7 +74,7 @@ public class Proveedor extends BiotrendsBaseEntity{
 
     @Builder
     public static Proveedor target(String id, String nombre, String direccion, String telefono, String fax,
-        String celular, String contacto, String ciudad,
+        String celular, String contacto, String ciudad, String correo,
         Set<ItemXProveedor> itemsXProveedor,Set<Evaluacion> evaluaciones){
         Proveedor proveedor = new Proveedor();
         proveedor.setId(id);
@@ -88,6 +87,7 @@ public class Proveedor extends BiotrendsBaseEntity{
         proveedor.setCiudad(ciudad);
         proveedor.setItemsXProveedor(itemsXProveedor);
         proveedor.setEvaluaciones(evaluaciones);
+        proveedor.setCorreo(correo);
 
         return proveedor;
     }

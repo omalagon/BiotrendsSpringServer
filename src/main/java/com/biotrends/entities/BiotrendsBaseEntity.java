@@ -22,7 +22,6 @@ import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME
 @MappedSuperclass
 @Data
 @JsonIgnoreProperties({ "createdBy", "lastModifiedBy","hibernateLazyInitializer", "handler" })
-@SuppressWarnings("squid:S1068")
 public class BiotrendsBaseEntity implements Persistable<String>{
 
 	private static final long serialVersionUID = 8541588848326421147L;

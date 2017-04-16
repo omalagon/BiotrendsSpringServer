@@ -19,11 +19,13 @@ import javax.validation.constraints.NotNull;
 @Table(name = "BIO_ORDEN_COMPRA")
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@SuppressWarnings("squid:S1068")
 public class OrdenCompra extends BiotrendsBaseEntity{
 
     private static final long serialVersionUID = -4612995550087076042L;
 
+    @Column(name = "ORD_NUM_ORDEN")
+    Long numeroOrden;
+    
     @Column(length= 500, name = "ORD_OBSERVACIONES")
     @NotNull
     private String observaciones;
@@ -33,12 +35,16 @@ public class OrdenCompra extends BiotrendsBaseEntity{
     private Usuario usuario;
 
     @Builder
-    public static OrdenCompra target(String id, String observaciones, Usuario usuario){
+    public static OrdenCompra target(String id, 
+    		String observaciones, 
+    		Usuario usuario,
+    		Long numeroOrden){
         OrdenCompra ordenCompra = new OrdenCompra();
-        ordenCompra.setId(id); //Numero de orden
+        ordenCompra.setId(id);
         ordenCompra.setObservaciones(observaciones);
         ordenCompra.setUsuario(usuario);
-
+        ordenCompra.setNumeroOrden(numeroOrden);
+        
         return ordenCompra;
     }
 

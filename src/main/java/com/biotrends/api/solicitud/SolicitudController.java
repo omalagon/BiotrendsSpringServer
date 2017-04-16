@@ -93,4 +93,14 @@ public interface SolicitudController {
         @ApiResponse(code = 500, message = "Unexpected Internal Server Error")})
     @RequestMapping(value = "/report", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
     public void generateReport(HttpServletResponse response) throws IOException;
+    
+    @ApiModelProperty(position = 7, required = true, value = "List of solicitudes")
+    @ApiOperation(value = "Get solicitudes by idSolicitante", notes = "Get solicitudes by idSolicitante", response = Solicitud.class, produces = APPLICATION_HAL_JSON_VALUE)
+    @ApiResponses({@ApiResponse(code = 200, message = "An Solicitud from given Id"),
+        @ApiResponse(code = 400, message = "Bad Request"),
+        @ApiResponse(code = 401, message = "Unauthorized Request"),
+        @ApiResponse(code = 404, message = "Solicitud Not Found"),
+        @ApiResponse(code = 500, message = "Unexpected Internal Server Error")})
+    @RequestMapping(value = "/solicitante/{idSolicitante}", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
+    public ResponseEntity<List<Solicitud>> getSolicitudesByIdSolicitante(@PathVariable final String idSolicitante);
 }

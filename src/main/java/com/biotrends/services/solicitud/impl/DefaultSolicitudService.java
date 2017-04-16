@@ -20,7 +20,6 @@ import com.biotrends.entities.solicitud.Solicitud;
 import com.biotrends.entities.usuario.Usuario;
 import com.biotrends.exceptions.CommonBiotrendsRuntimeException;
 import com.biotrends.repositories.solicitud.SolicitudRepository;
-import com.biotrends.services.consumo.ConsumoService;
 import com.biotrends.services.item.ItemService;
 import com.biotrends.services.itemxsolicitud.ItemxSolicitudService;
 import com.biotrends.services.solicitud.SolicitudService;
@@ -40,19 +39,16 @@ public class DefaultSolicitudService implements SolicitudService{
 	private final UsuarioService usuarioService;
 	private final ItemxSolicitudService ixsService;
 	private final ItemService itemService;
-	private final ConsumoService consumoService;
 	
 	@Autowired
 	public DefaultSolicitudService(SolicitudRepository repository, 
 			UsuarioService usuarioService, 
 			ItemxSolicitudService ixsService,
-			ItemService itemService,
-			ConsumoService consumoService) {
+			ItemService itemService) {
 		this.repository = repository;
 		this.usuarioService = usuarioService;
 		this.ixsService = ixsService;
 		this.itemService = itemService;
-		this.consumoService = consumoService;
 	}
 	
 	@Override
@@ -93,17 +89,6 @@ public class DefaultSolicitudService implements SolicitudService{
 		}
 		
 		return Optional.ofNullable(repository.saveAndFlush(solicitud));
-	}
-
-	private synchronized void setIdSolicitud(Solicitud solicitud) {
-		if(solicitud.getIdSolicitud() == null){
-    		Long max = repository.getLastSolicitud();
-    		if(max == null){
-    			solicitud.setIdSolicitud(1L);
-    		}else{
-    			solicitud.setIdSolicitud(max + 1L);
-    		}
-    	}
 	}
 
 	/**
@@ -189,6 +174,30 @@ public class DefaultSolicitudService implements SolicitudService{
             throw new CommonBiotrendsRuntimeException("Error eliminando la solicitud con id [" + id + "]", ex);
         
 		}
+	}
+
+	@Override
+	public List<Solicitud> findAllSolicitudesByIdSolicitante(String idSolicitante) {
+		checkNotNull(idSolicitante, "El id del solicitante no puede ser null");
+		
+		try {
+			return repository.findSolicitudesByIdSolicitante(idSolicitante);	
+		} catch (Exception ex) {
+			log.error("Error buscando las solicitudes del solicitante {{}}", idSolicitante, ex);
+		}
+		
+		return null;
+	}
+	
+	private synchronized void setIdSolicitud(Solicitud solicitud) {
+		if(solicitud.getIdSolicitud() == null){
+    		Long max = repository.getLastSolicitud();
+    		if(max == null){
+    			solicitud.setIdSolicitud(1L);
+    		}else{
+    			solicitud.setIdSolicitud(max + 1L);
+    		}
+    	}
 	}
 
 }

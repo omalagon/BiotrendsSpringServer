@@ -6,7 +6,9 @@ package com.biotrends.exceptions;
  */
 public class CommonBiotrendsRuntimeException extends RuntimeException {
 
-    public CommonBiotrendsRuntimeException() {
+	private static final long serialVersionUID = -2906468147701671472L;
+
+	public CommonBiotrendsRuntimeException() {
         super();
     }
 

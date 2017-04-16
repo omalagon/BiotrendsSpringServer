@@ -9,6 +9,5 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan("com.biotrends.services.*")
-@SuppressWarnings("squid:S2094")
 public class ServiceConfig {
 }
