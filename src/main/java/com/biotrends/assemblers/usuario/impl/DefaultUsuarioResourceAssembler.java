@@ -13,11 +13,14 @@ import org.springframework.stereotype.Service;
 
     @Override public Usuario fromResource(UsuarioResource resource) {
         if (resource != null) {
-
-            Usuario usuario = resource.getUsuario();
-            usuario.setUsuarioCreador(resource.getIdUsuarioCreador());
-
-            return usuario;
+        	return Usuario.builder()
+        			.id(resource.getIdentifier())
+        			.nombre(resource.getNombre())
+        			.password(resource.getPassword())
+        			.correo(resource.getCorreo())
+        			.laboratorio(resource.getLaboratorio())
+        			.usuarioCreador(resource.getUsuarioCreador())
+        			.build();
         }
 
         return null;
@@ -25,8 +28,13 @@ import org.springframework.stereotype.Service;
 
     @Override public UsuarioResource toResource(Usuario entity) {
         if (entity != null) {
-            return UsuarioResource.builder().usuario(entity)
-                .idUsuarioCreador(entity.getUsuarioCreador()).build();
+            return UsuarioResource.builder()
+            		.id(entity.getId())
+            		.nombre(entity.getNombre())
+            		.correo(entity.getCorreo())
+            		.laboratorio(entity.getLaboratorio())
+            		.usuarioCreador(entity.getUsuarioCreador())
+            		.build();
         }
 
         return null;

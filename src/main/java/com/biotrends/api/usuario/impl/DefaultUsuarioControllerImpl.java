@@ -8,6 +8,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.biotrends.api.usuario.UsuarioController;
+import com.biotrends.assemblers.usuario.UsuarioResource;
+import com.biotrends.assemblers.usuario.UsuarioResourceAssembler;
 import com.biotrends.entities.usuario.Usuario;
 import com.biotrends.services.usuario.UsuarioService;
 
@@ -37,24 +40,31 @@ import io.swagger.annotations.ApiParam;
 public class DefaultUsuarioControllerImpl implements UsuarioController {
 
     private final UsuarioService service;
-
-    @Autowired public DefaultUsuarioControllerImpl(UsuarioService service) {
+    private final UsuarioResourceAssembler assembler;
+    
+    @Autowired public DefaultUsuarioControllerImpl(UsuarioService service,
+    		UsuarioResourceAssembler assembler) {
         this.service = service;
+        this.assembler = assembler;
     }
 
     @Override @RequestMapping(value = "/", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
-    public ResponseEntity<List<Usuario>> getUsuarios() {
+    public ResponseEntity<List<UsuarioResource>> getUsuarios() {
         List<Usuario> usuarioList = service.findAll();
-
-        return new ResponseEntity<>(usuarioList, OK);
+        List<UsuarioResource> resources = new ArrayList<>();
+        for (Usuario usuario : usuarioList) {
+			resources.add(assembler.toResource(usuario));
+		}
+        
+        return new ResponseEntity<>(resources, OK);
     }
 
     @Override @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
-    public ResponseEntity<Usuario> getUsuarioById(@PathVariable final String id) {
+    public ResponseEntity<UsuarioResource> getUsuarioById(@PathVariable final String id) {
         Optional<Usuario> usuarioById = service.findById(id);
         if (usuarioById.isPresent()) {
 
-            return new ResponseEntity<>(usuarioById.get(), OK);
+            return new ResponseEntity<>(assembler.toResource(usuarioById.get()), OK);
         }
 
         throw new EntityNotFoundException("Usuario not found by id [" + id + "]");
@@ -62,11 +72,11 @@ public class DefaultUsuarioControllerImpl implements UsuarioController {
 
     @Override
     @RequestMapping(value = "/delete/{id}", method = DELETE, produces = APPLICATION_HAL_JSON_VALUE)
-    public ResponseEntity<Usuario> deleteUsuarioById(@PathVariable final String id) {
+    public ResponseEntity<UsuarioResource> deleteUsuarioById(@PathVariable final String id) {
         Optional<Usuario> usuarioById = service.delete(id);
         if (usuarioById.isPresent()) {
 
-            return new ResponseEntity<>(usuarioById.get(), GONE);
+            return new ResponseEntity<>(assembler.toResource(usuarioById.get()), GONE);
         }
 
         throw new EntityNotFoundException("Usuario not found by id [" + id + "]");
@@ -74,15 +84,15 @@ public class DefaultUsuarioControllerImpl implements UsuarioController {
 
     @Override
     @RequestMapping(value = "/create", method = POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_HAL_JSON_VALUE)
-    public ResponseEntity<Usuario> createUsuario(
+    public ResponseEntity<UsuarioResource> createUsuario(
         @ApiParam(value = "The usuario object", required = true) @RequestBody(required = true)
-            Usuario usuario) {
+            UsuarioResource usuario) {
 
         if (usuario != null) {
-
-            Optional<Usuario> usuarioGuardado = service.createOrUpdateUsuario(usuario);
+        	Usuario usuarioACrear = assembler.fromResource(usuario);
+            Optional<Usuario> usuarioGuardado = service.createOrUpdateUsuario(usuarioACrear);
             if (usuarioGuardado.isPresent()) {
-                return new ResponseEntity<>(usuarioGuardado.get(), OK);
+                return new ResponseEntity<>(assembler.toResource(usuarioGuardado.get()), OK);
             }
 
             throw new EntityNotFoundException("Usuario no guardado");
@@ -92,11 +102,11 @@ public class DefaultUsuarioControllerImpl implements UsuarioController {
 
 	@Override
 	@RequestMapping(value = "/login/{id}/{password}", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
-	public ResponseEntity<Usuario> loginUser(@PathVariable final String id, @PathVariable final String password) {
+	public ResponseEntity<UsuarioResource> loginUser(@PathVariable final String id, @PathVariable final String password) {
 		
 		Optional<Usuario> usuario = service.findByIdPassword(id, password);
 		if(usuario.isPresent()){
-			return new ResponseEntity<>(usuario.get(), OK);
+			return new ResponseEntity<>(assembler.toResource(usuario.get()), OK);
 		}
 
 		throw new EntityNotFoundException("Credenciales invalidas".concat(id).concat("-->").concat(password));

@@ -34,7 +34,6 @@ public class DefaultUsuarioService implements UsuarioService {
     @Override public Optional<Usuario> createOrUpdateUsuario(Usuario usuario) {
         checkNotNull(usuario, "El usuario no puede ser nulo");
 
-        if (usuario.getId() != null) {
             Optional<Usuario> usuarioEncontrado = findById(usuario.getId());
             if (usuarioEncontrado.isPresent()) {
                 Usuario usuarioToUpdate = usuarioEncontrado.get();
@@ -48,9 +47,6 @@ public class DefaultUsuarioService implements UsuarioService {
             	usuario.setPassword(Encryptor.encrypt(usuario.getPassword()));
                 return Optional.ofNullable(repository.saveAndFlush(usuario));
             }
-        }
-        log.error("Error creando o actualizando el usuario");
-        throw new CommonBiotrendsRuntimeException("Error creando o actualizando el usuario");
     }
 
     @Override

@@ -1,17 +1,26 @@
 package com.biotrends.api.usuario;
 
-import com.biotrends.entities.usuario.Usuario;
-import io.swagger.annotations.*;
+import static com.biotrends.api.RestConstants.APPLICATION_HAL_JSON_VALUE;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
+import com.biotrends.assemblers.usuario.UsuarioResource;
+import com.biotrends.entities.usuario.Usuario;
 
-import static com.biotrends.api.RestConstants.APPLICATION_HAL_JSON_VALUE;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 /**
  * @author Oscar Malagon
@@ -27,7 +36,7 @@ public interface UsuarioController {
         @ApiResponse(code = 404, message = "Usuario Not Found"),
         @ApiResponse(code = 500, message = "Unexpected Internal Server Error")})
     @RequestMapping(value = "/", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
-    public ResponseEntity<List<Usuario>> getUsuarios();
+    public ResponseEntity<List<UsuarioResource>> getUsuarios();
 
     @ApiModelProperty(position = 2, required = true, value = "Usuario given its id")
     @ApiOperation(value = "Get usuario given an id", notes = "Find the usuario that match the given id", response = Usuario.class, produces = APPLICATION_HAL_JSON_VALUE)
@@ -37,7 +46,7 @@ public interface UsuarioController {
         @ApiResponse(code = 404, message = "Usuario Not Found"),
         @ApiResponse(code = 500, message = "Unexpected Internal Server Error")})
     @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
-    public ResponseEntity<Usuario> getUsuarioById(@PathVariable final String id);
+    public ResponseEntity<UsuarioResource> getUsuarioById(@PathVariable final String id);
 
     @ApiModelProperty(position = 3, required = true, value = "Deletes an usuario given its id")
     @ApiOperation(value = "Delete usuario", notes = "Delete usuario that match the given id", response = Usuario.class, produces = APPLICATION_HAL_JSON_VALUE)
@@ -47,7 +56,7 @@ public interface UsuarioController {
         @ApiResponse(code = 404, message = "Usuario Not Found"),
         @ApiResponse(code = 500, message = "Unexpected Internal Server Error")})
     @RequestMapping(value = "/delete/{id}", method = DELETE, produces = APPLICATION_HAL_JSON_VALUE)
-    public ResponseEntity<Usuario> deleteUsuarioById(@PathVariable final String id);
+    public ResponseEntity<UsuarioResource> deleteUsuarioById(@PathVariable final String id);
 
     @ApiModelProperty(position = 4, required = true, value = "Creates an usuario")
     @ApiOperation(value = "Create usuario", notes = "Creates an usuario given its information", response = Usuario.class, produces = APPLICATION_HAL_JSON_VALUE)
@@ -57,9 +66,9 @@ public interface UsuarioController {
         @ApiResponse(code = 404, message = "Usuario Not created"),
         @ApiResponse(code = 500, message = "Unexpected Internal Server Error")})
     @RequestMapping(value = "/create", method = POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_HAL_JSON_VALUE)
-    public ResponseEntity<Usuario> createUsuario(
+    public ResponseEntity<UsuarioResource> createUsuario(
         @ApiParam(value = "The usuario object", required = true) @RequestBody(required = true)
-            Usuario usuario);
+            UsuarioResource usuario);
     
     @ApiModelProperty(position = 5, required = true, value = "Login by id and password")
     @ApiOperation(value = "Login by username and password", notes = "Login by id and password", response = Usuario.class, produces = APPLICATION_HAL_JSON_VALUE)
@@ -69,6 +78,6 @@ public interface UsuarioController {
         @ApiResponse(code = 404, message = "Usuario Not created"),
         @ApiResponse(code = 500, message = "Unexpected Internal Server Error")})
     @RequestMapping(value = "/login/{id}/{password}", method = GET, produces = APPLICATION_HAL_JSON_VALUE)
-    public ResponseEntity<Usuario> loginUser(
+    public ResponseEntity<UsuarioResource> loginUser(
     		@PathVariable final String id, @PathVariable final String password);
 }

@@ -3,6 +3,7 @@ package com.biotrends.entities.itemxsolicitud;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -41,7 +42,7 @@ public class ItemXSolicitud extends BiotrendsBaseEntity{
 	private Double cantidadAprobada;
 	
 	@OneToOne(fetch = FetchType.LAZY)
-	@Column(name = "IXS_PROV", nullable = true)
+	@JoinColumn(name = "IXS_PROV")
 	private Proveedor proveedor;
 	
 	@Column(name = "IXS_GENERADO", nullable = true)
